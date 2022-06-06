@@ -3,9 +3,9 @@
 #Needed Libraries
 import numpy as np
 import pandas as pd
-import Posterior
-import Likelihood
-import Prior
+import posterior
+import likelihood
+import prior
 
 
 class Optimization:

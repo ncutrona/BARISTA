@@ -3,7 +3,7 @@
 #Needed Libraries
 import numpy as np
 import pandas as pd
-import Optimization
+import optimization
 
 class Framework:
 

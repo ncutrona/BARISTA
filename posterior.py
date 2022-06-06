@@ -3,8 +3,8 @@
 #Needed Libraries
 import numpy as np
 import pandas as pd
-import Likelihood
-import Prior
+import likelihood
+import prior
 
 class PosteriorDistribution:
 
