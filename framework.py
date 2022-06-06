@@ -25,7 +25,7 @@ class Framework:
         self.label_values = np.unique(self.training_labels)
         
         #Optimized Model Parameters
-        self.optimized_model = Optimization(self.training_samples, self.training_labels, self.max_iter, self.convergence_constant, self.learning_rate, self.lambda_term)
+        self.optimized_model = optimization.Optimization(self.training_samples, self.training_labels, self.max_iter, self.convergence_constant, self.learning_rate, self.lambda_term)
         self.M = self.optimized_model.M
         self.priors = self.optimized_model.priors
         self.likelihoods = self.optimized_model.likelihood_storage

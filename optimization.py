@@ -20,7 +20,7 @@ class Optimization:
         self.num_observations = len(self.training_labels) #Number of Samples
         self.num_classes = len(self.label_values)
         self.lambda_term = lambda_term
-        self.priors = Priors(self.training_labels).prior_vector #Prior Vector
+        self.priors = prior.Priors(self.training_labels).prior_vector #Prior Vector
         self.ground_truths = self.get_ground_truth() #Ground Truth Values
         self.weight_matrix = self.initialize_weight_matrix() #Weight Matrix (will be updated through learning)
         self.learning_rate = learning_rate #WILL NEED TO IMPLEMENT LINE SEARCH
@@ -57,11 +57,11 @@ class Optimization:
     def get_likelihood_cache(self):
         
         
-        return LikelihoodMatrix(self.training_samples, self.training_labels).likelihood_matrices
+        return likelihood.LikelihoodMatrix(self.training_samples, self.training_labels).likelihood_matrices
 
     def get_likelihood_storage(self):
 
-        return LikelihoodMatrix(self.training_samples, self.training_labels).likelihood_cache
+        return likelihood.LikelihoodMatrix(self.training_samples, self.training_labels).likelihood_cache
         
 
     #Getting the cache of observation posterior distributions
@@ -71,7 +71,7 @@ class Optimization:
         priors = self.priors
         posterior_distributions = []
         for i in range(self.num_observations): #Creating a list of posteriors for each sample 
-            post_object = PosteriorDistribution(self.weight_matrix, likelihoods[i], priors)
+            post_object = posterior.PosteriorDistribution(self.weight_matrix, likelihoods[i], priors)
             posterior_i = post_object.posterior_distribution
             posterior_distributions.append(posterior_i)
 
