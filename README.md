@@ -8,6 +8,14 @@ The RPNB Framework is a class-specific attribute weight naive Bayes method that 
 
 *Some Computation to be familiar with*:
 
-**Bayes Rule**: ![Screen Shot 2022-06-06 at 4 56 52 PM](https://user-images.githubusercontent.com/59042355/172247826-33d986ef-752c-439b-9634-0992e3c0d59f.png)
+**INSERT IMAGE HERE**
+
+WHEN TO USE THIS FRAMEWORK...
+
+
+HOW TO USE THIS FRAMEWORK...
+
+
+WORKING PAPER...
 
  
