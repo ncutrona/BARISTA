@@ -4,6 +4,7 @@
 import numpy as np
 import pandas as pd
 import optimization
+import posterior
 
 class Framework:
 
@@ -80,7 +81,7 @@ class Framework:
         priors = self.priors
         posterior_distributions = []
         for i in range(self.num_test_observations): #Creating a list of posteriors for each sample 
-            post_object = PosteriorDistribution(self.M[0], fitted_likelihoods[i], priors)
+            post_object = posterior.PosteriorDistribution(self.M[0], fitted_likelihoods[i], priors)
             posterior_i = post_object.posterior_distribution
             posterior_distributions.append(posterior_i)
 
