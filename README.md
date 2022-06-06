@@ -8,5 +8,6 @@ The RPNB Framework is a class-specific attribute weight naive Bayes method that 
 
 *Some Computation to be familiar with*:
 
-**Bayes Rule**: p(c ┤|  x)=  (p(x ┤|  c)P(c))/(p(x))![image](https://user-images.githubusercontent.com/59042355/172247710-2e26832e-fd6a-435c-95c9-61b4400448bb.png)
+**Bayes Rule**: ![Screen Shot 2022-06-06 at 4 56 52 PM](https://user-images.githubusercontent.com/59042355/172247826-33d986ef-752c-439b-9634-0992e3c0d59f.png)
+
  
