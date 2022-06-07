@@ -18,7 +18,7 @@ Users should use this framework for classifciation tasks with large feature spac
 
 **How to Use**
 
-In order to use this framework, simply clone the repo to your local machine and run the notebook file (jupyter notebooks). Instructions are given in the notebook file on how to select hyper paramters and load in your data set. The framework assumes all pre-processing has been done prior to model learning.
+In order to use this framework, simply clone the repo to your local machine and run the notebook file (model.ipynb). Instructions are given in the notebook file on how to select hyper paramters and load in your data set. The framework assumes all pre-processing has been done prior to model learning.
 
 
 **Working Paper**
