@@ -8,7 +8,8 @@ The RPNB Framework is a class-specific attribute weighted naive Bayes (CAWNB) me
 
 *FRAMEWORK PROCESSES*:
 
-**INSERT IMAGE HERE**
+<img width="1140" alt="Screen Shot 2022-06-07 at 1 15 43 PM" src="https://user-images.githubusercontent.com/59042355/172443629-b1ae684d-a9f7-4a63-8349-8e3736efd821.png">
+
 
 WHEN TO USE THIS FRAMEWORK...
 
