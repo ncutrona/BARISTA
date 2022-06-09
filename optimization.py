@@ -104,7 +104,7 @@ class Optimization:
 
             d_sum += ((ground_truth - phat_estimation) * (phat_estimation * (1-phat_estimation) * log_likelihood))
         
-        return d_sum
+        return -1 * d_sum
 
 
     def prox_solution(self, update):
