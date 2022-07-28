@@ -30,6 +30,6 @@ class Preprocessing:
         if(len(self.continuous_attributes)!= 0):
             print("_Discretiziig Data_...")
             for i in range(len(self.continuous_attributes)):
-                self.dataframe = MDLP(self.dataframe, self.continuous_attributes[i], self.target_attribute).dataframe
+                self.dataframe = discretize.MDLP(self.dataframe, self.continuous_attributes[i], self.target_attribute).dataframe
         else:
             return

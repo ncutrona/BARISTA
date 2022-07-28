@@ -1,7 +1,5 @@
 import numpy as np
 import pandas as pd
-import likelihoods
-import priors
 
 class PosteriorDistribution:
 

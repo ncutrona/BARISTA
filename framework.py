@@ -19,7 +19,7 @@ class Framework:
         self.label_values = np.unique(self.training_labels)
         self.beta_1 = beta_1
         self.beta_2 = beta_2
-        self.optimized_model = Optimization(self.training_samples, self.training_labels, self.max_iter, self.convergence_constant, self.lambda_term, self.beta_1, self.beta_2)
+        self.optimized_model = optimization.Optimization(self.training_samples, self.training_labels, self.max_iter, self.convergence_constant, self.lambda_term, self.beta_1, self.beta_2)
         self.M = self.optimized_model.M
         self.training_loss = self.optimized_model.loss
         self.priors = self.optimized_model.priors
@@ -62,7 +62,7 @@ class Framework:
         priors = self.priors
         posterior_distributions = []
         for i in range(self.num_test_observations): 
-            post_object = PosteriorDistribution(self.M[0], fitted_likelihoods[i], priors)
+            post_object = posteriors.PosteriorDistribution(self.M[0], fitted_likelihoods[i], priors)
             posterior_i = post_object.posterior_distribution
             posterior_distributions.append(posterior_i)
         return posterior_distributions

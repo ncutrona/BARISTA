@@ -7,7 +7,7 @@ data['A'] = [1] * 15
 data['y'] = [1,1,1,1,1,2,2,2,2,3,3,3,4,4,5]
 attribute = 'A'
 class_attribute = 'y'
-MLDP_test_object = MDLP(data, attribute, class_attribute)
+MLDP_test_object = discretize.MDLP(data, attribute, class_attribute)
 
 def test_entropy_even():
   assert MLDP_test_object.entropy(pd.Series([1,1,0,0])) == 1

@@ -18,7 +18,7 @@ class Optimization:
         self.label_values = np.unique(self.training_labels)
         self.num_observations = len(self.training_labels)
         self.num_classes = len(self.label_values)
-        self.priors = Priors(self.training_labels).prior_vector
+        self.priors = priors.Priors(self.training_labels).prior_vector
         self.ground_truths = self.get_ground_truth()
         self.weight_matrix = self.initialize_weight_matrix() 
         self.likelihood_storage = self.get_likelihood_storage()
@@ -43,17 +43,17 @@ class Optimization:
         return ground_truths
     
     def get_likelihood_cache(self):
-        return LikelihoodMatrix(self.training_samples, self.training_labels).likelihood_matrices
+        return likelihoods.LikelihoodMatrix(self.training_samples, self.training_labels).likelihood_matrices
 
     def get_likelihood_storage(self):
-        return LikelihoodMatrix(self.training_samples, self.training_labels).likelihood_cache
+        return likelihoods.LikelihoodMatrix(self.training_samples, self.training_labels).likelihood_cache
         
     def get_posterior_cache(self, weight_matrix): 
         likelihoods = self.likelihood_matrix_cache
         priors = self.priors
         posterior_distributions = []
         for i in range(self.num_observations): 
-            post_object = PosteriorDistribution(weight_matrix, likelihoods[i], priors)
+            post_object = posteriors.PosteriorDistribution(weight_matrix, likelihoods[i], priors)
             posterior_i = post_object.posterior_distribution
             posterior_distributions.append(posterior_i)
         return posterior_distributions 

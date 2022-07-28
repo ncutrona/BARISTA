@@ -25,7 +25,7 @@ class CrossValidation:
             X_test = X_test.reset_index(drop=True)
             y_train = y_train.reset_index(drop=True)
             y_test = y_test.reset_index(drop=True)
-            cross_accuracies.append(Framework(X_train, y_train, X_test, y_test, self.max_iter, self.convergence_constant, penalty, self.beta_1, self.beta_2).test_accuracy)
+            cross_accuracies.append(framework.Framework(X_train, y_train, X_test, y_test, self.max_iter, self.convergence_constant, penalty, self.beta_1, self.beta_2).test_accuracy)
         return np.mean(cross_accuracies)
 
     def get_best_parameter(self):
