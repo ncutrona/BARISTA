@@ -37,15 +37,15 @@ class Framework:
         attributes = self.training_samples.columns 
         likelihood_matrix = []
         for i in range(self.num_classes):
-            class_value = str(self.label_values[i])
+            class_value = self.label_values[i]
             for j in range(len(attributes)):
-                attribute_value = str(instance[attributes[j]])
+                attribute_value = instance[attributes[j]]
                 try:
                     likelihood_matrix.append(likelihood_cache[attributes[j]][attribute_value + class_value])
                 except KeyError:
                     nj = 1 / (len(np.unique(self.training_samples[attributes[j]])))
                     c = self.training_labels.value_counts()
-                    c_val = c[int(class_value)] + 1
+                    c_val = c[class_value] + 1
                     likelihood_matrix.append(nj/c_val)
         likelihood_matrix = np.array(likelihood_matrix)
         likelihood_matrix = likelihood_matrix.reshape(self.num_classes, len(attributes))

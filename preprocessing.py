@@ -12,6 +12,7 @@ class Preprocessing:
         self.test_split = test_split
         self.continuous_attributes = continuous_attributes
         self.discretize()
+        self.make_str()
         self.training_samples, self.training_labels, self.testing_samples, self.testing_labels = self.split_data()
     
     def split_data(self):
@@ -30,6 +31,13 @@ class Preprocessing:
         if(len(self.continuous_attributes)!= 0):
             print("_Discretiziig Data_...")
             for i in range(len(self.continuous_attributes)):
-                self.dataframe = discretize.MDLP(self.dataframe, self.continuous_attributes[i], self.target_attribute).dataframe
+                self.dataframe = MDLP(self.dataframe, self.continuous_attributes[i], self.target_attribute).dataframe
         else:
             return
+
+    def make_str(self):
+      string_cols = self.dataframe.columns[self.dataframe.dtypes==object].tolist()
+      cols = self.dataframe.columns
+      for i in range(len(cols)):
+        if(cols[i] not in string_cols):
+          self.dataframe[self.dataframe[cols[i]]] = self.dataframe[self.dataframe[cols[i]]].astype(str)
