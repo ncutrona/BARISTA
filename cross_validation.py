@@ -18,7 +18,7 @@ class CrossValidation:
 
     def cross_val(self, penalty):
         cross_accuracies = []
-        kf = KFold(n_splits=self.k)
+        kf = KFold(n_splits = self.k)
         for train_index, test_index in kf.split(self.training_samples):
             X_train, X_test = self.training_samples.iloc[train_index, :], self.training_samples.iloc[test_index, :]
             y_train, y_test = self.training_labels.iloc[train_index], self.training_labels.iloc[test_index]

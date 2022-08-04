@@ -134,7 +134,7 @@ class Optimization:
             else:
                 notdone = False
                 h = t
-            if(max_iter > 100):
+            if(max_iter > 50):
                 notdone = False
                 h = t
             max_iter += 1
