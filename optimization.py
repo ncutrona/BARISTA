@@ -101,7 +101,7 @@ class Optimization:
             return converged
     
     def gradient_norm(self, gradient):
-        grad_norm = round(np.sum(gradient), 6)
+        grad_norm = round(np.sqrt(np.sum(np.square(gradient)), 6))
         return grad_norm
 
     def wolfe_line_search(self, gradient, posterior_cache):
