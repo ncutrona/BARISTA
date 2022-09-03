@@ -46,9 +46,9 @@ class RPNB:
         model = framework.Framework(self.training_samples, self.training_labels, self.testing_samples, self.testing_labels, self.max_iter, self.convergence_constant, self.best_lambda, self.beta_1, self.beta_2)
         return model
 
-    def plot_results(self):
-        print("Testing Accuracy: ", self.model.test_accuracy)
-        plt.plot(self.model.training_loss)
+    def plot_results(self, model):
+        print("Testing Accuracy: ", model.test_accuracy)
+        plt.plot(model.training_loss)
         plt.title("RPNB Training Loss")
         plt.xlabel("Iteration")
         plt.ylabel("Loss")
