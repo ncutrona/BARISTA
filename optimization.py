@@ -66,6 +66,12 @@ class Optimization:
             for j in range(self.num_classes):
                 loss_i += np.square((self.ground_truths[i][j] - posterior_cache[i][j]))
             loss += loss_i
+        penalty = 0
+        for i in range(self.num_classes):
+            for j in range(len(self.weight_matrix[0])):
+                penalty+= np.abs(self.weight_matrix[i][j])
+        penalty = penalty * self.lambda_term
+        loss += penalty
         return scale * loss
 
     def delta_Wij(self, class_index, attribute_index, posterior_cache):
