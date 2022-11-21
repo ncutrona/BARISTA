@@ -74,14 +74,30 @@ class Optimization:
         loss += penalty
         return scale * loss
 
-    def delta_Wij(self, class_index, attribute_index, posterior_cache):
+    '''def delta_Wij(self, class_index, attribute_index, posterior_cache):
         d_sum = 0
         for i in range(self.num_observations):
             ground_truth = self.ground_truths[i][class_index]
             phat_estimation = posterior_cache[i][class_index]
             log_likelihood = np.log(self.likelihood_matrix_cache[i][class_index][attribute_index])
             d_sum += ((ground_truth - phat_estimation) * (phat_estimation * (1-phat_estimation) * log_likelihood))
-        return -1 * d_sum
+        return -1 * d_sum'''
+
+    def delta_Wij(self, class_index, attribute_index, posterior_cache):
+        different_class_sum = 0
+        same_class_sum = 0
+        for i in range(self.num_observations):
+            log_likelihood = np.log(self.likelihood_matrix_cache[i][class_index][attribute_index])
+            same_class_phat_estimation = posterior_cache[i][class_index]
+            same_class_ground_truth = self.ground_truths[i][class_index]
+            same_class_sum += ((same_class_ground_truth - same_class_phat_estimation) * (same_class_phat_estimation * (1-same_class_phat_estimation) * log_likelihood))
+            for j in range(self.num_classes):
+                if(j != class_index):
+                    different_class_ground_truth = self.ground_truths[i][j]
+                    different_class_phat_estimation = posterior_cache[i][j]
+                    different_class_sum += (different_class_ground_truth - different_class_phat_estimation) * (different_class_phat_estimation * same_class_phat_estimation * log_likelihood)
+        return different_class_sum - same_class_sum
+
 
     def prox_solution(self, update, learning_rate):
         boundary = (learning_rate * self.lambda_term) / 2
@@ -151,6 +167,7 @@ class Optimization:
         weight_matrix = np.copy(self.weight_matrix)
         posterior_cache = self.get_posterior_cache(self.weight_matrix)
         loss_values = []
+        weight_collection = []
         iteration = 0
         num_c = self.num_classes
         num_atts = len(self.training_samples.columns)
@@ -174,6 +191,7 @@ class Optimization:
                     proximal_solution = self.prox_solution(update, learning_rate)
                     weight_matrix[i][j] = proximal_solution
             
+            weight_collection.append(np.copy(weight_matrix))
             self.weight_matrix = weight_matrix
             posterior_cache = self.get_posterior_cache(self.weight_matrix)
             gradient_norm = self.gradient_norm(flat_weight_matrix_gradient)
@@ -203,4 +221,4 @@ class Optimization:
         else:
             print("_Optimization Failed_")
             self.posterior_cache = posterior_cache
-            return [self.weight_matrix]
+            return [self.weight_matrix, weight_collection]
