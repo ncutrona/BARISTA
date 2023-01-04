@@ -217,7 +217,7 @@ class Optimization:
         if(converged):
             print("_Optimization Successful_")
             self.posterior_cache = posterior_cache    
-            return [self.weight_matrix]  
+            return [self.weight_matrix, weight_collection]  
         else:
             print("_Optimization Failed_")
             self.posterior_cache = posterior_cache
