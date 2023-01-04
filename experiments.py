@@ -19,7 +19,7 @@ max_iterations = 1
 k = 5
 beta_1 = 0.85
 beta_2 = 0.15
-lambda_terms = [0.01, 0.025, 0.05, 0.075, 0.1, 0.125, 0.15]
+lambda_terms = [0.01, 0.03, 0.06, 0.09, 0.12]
 
 #Discretization
 breast_w_continuous = []
