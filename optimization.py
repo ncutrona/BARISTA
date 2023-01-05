@@ -3,6 +3,7 @@ import pandas as pd
 import likelihoods
 import posteriors
 import priors
+import time
 
 class Optimization:
 
@@ -24,6 +25,18 @@ class Optimization:
         self.likelihood_storage = self.get_likelihood_storage()
         self.likelihood_matrix_cache = self.get_likelihood_cache() 
         self.M = self.model_learning()
+
+
+    def tic(self):
+        # Homemade version of matlab tic and toc functions
+        global startTime_for_tictoc
+        startTime_for_tictoc = time.time()
+
+    def toc(self):
+        if 'startTime_for_tictoc' in globals():
+            print("Elapsed time is " + str(time.time() - startTime_for_tictoc) + " seconds.")
+        else:
+            print("Toc: start time not set")
 
     def initialize_weight_matrix(self):
         attribute_length = len(self.training_samples.columns)
@@ -75,12 +88,14 @@ class Optimization:
         return scale * loss
 
     '''def delta_Wij(self, class_index, attribute_index, posterior_cache):
+        self.tic()
         d_sum = 0
         for i in range(self.num_observations):
             ground_truth = self.ground_truths[i][class_index]
             phat_estimation = posterior_cache[i][class_index]
             log_likelihood = np.log(self.likelihood_matrix_cache[i][class_index][attribute_index])
             d_sum += ((ground_truth - phat_estimation) * (phat_estimation * (1-phat_estimation) * log_likelihood))
+        self.toc()
         return -1 * d_sum'''
 
     def delta_Wij(self, class_index, attribute_index, posterior_cache):
@@ -172,7 +187,7 @@ class Optimization:
         num_c = self.num_classes
         num_atts = len(self.training_samples.columns)
         converged = False
-        learning_rate = 0
+        learning_rate = 0.01
         
         if(self.max_iter > 0):
             print("_Optimizing_...\n")
@@ -183,7 +198,7 @@ class Optimization:
                 for j in range(num_atts):
                     gradient_ij = self.delta_Wij(i,j, posterior_cache)
                     flat_weight_matrix_gradient.append(gradient_ij)
-            learning_rate = self.wolfe_line_search(flat_weight_matrix_gradient, posterior_cache)
+            #learning_rate = self.wolfe_line_search(flat_weight_matrix_gradient, posterior_cache)
             graident_matrix = np.reshape(flat_weight_matrix_gradient, (num_c, num_atts))
             for i in range(num_c):
                 for j in range(num_atts):

@@ -3,6 +3,8 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import rpnb
+plt.rcParams['font.family'] = 'serif'
+
 
 #Loading The Data (Enter File Path)
 breast_w = pd.read_csv('/Users/nicolascutrona/Desktop/RPNB Data/breast_w.csv')
@@ -15,7 +17,7 @@ zoo = pd.read_csv('/Users/nicolascutrona/Desktop/RPNB Data/zoo.csv')
 #Experimentation Set Up
 test_split = 0.25
 convergence = 1e-7
-max_iterations = 1
+max_iterations = 5000
 k = 5
 beta_1 = 0.85
 beta_2 = 0.15
@@ -55,28 +57,70 @@ zoo_model = rpnb.RPNB(k, zoo, zoo_target, test_split, zoo_continuous, max_iterat
 zoo_accuracy = zoo_model.ten_fold_simulation()
 
 print("breast_w accuracy:", breast_w_accuracy)
+print("statlog_accuracy:", statlog_accuracy)
 print("iris_accuracy:", iris_accuracy)
 print("krkp_accuracy:", krkp_accuracy)
 print("mushrooms_accuracy:", mushrooms_accuracy)
-print("statlog_accuracy:", statlog_accuracy)
 print("zoo_accuarcy:", zoo_accuracy)
 
 
 #CONVERGENCE ANALYSIS
 breast_test_model = breast_w_model.final_model()
-breast_w_model.plot_convergence(breast_test_model) 
+breast_w_model_diff = breast_w_model.norm_differnces(breast_test_model) 
 
 iris_test_model = iris_model.final_model()
-iris_model.plot_convergence(iris_test_model)
+iris_model_diff = iris_model.norm_differnces(iris_test_model)
 
 krkp_test_model = krkp_model.final_model()
-krkp_model.plot_convergence(krkp_test_model)  
+krkp_model_diff = krkp_model.norm_differnces(krkp_test_model)  
 
 mushrooms_test_model = mushrooms_model.final_model()
-mushrooms_model.plot_convergence(mushrooms_test_model) 
+mushrooms_model_diff = mushrooms_model.norm_differnces(mushrooms_test_model) 
 
 statlog_test_model = statlog_model.final_model()
-statlog_model.plot_convergence(statlog_test_model)
+statlog_model_diff = statlog_model.norm_differnces(statlog_test_model)
 
 zoo_test_model = zoo_model.final_model()
-zoo_model.plot_convergence(zoo_test_model)
+zoo_model_diff = zoo_model.norm_differnces(zoo_test_model)
+
+
+#Convergence Plots
+fig, ax = plt.subplots(3, 2, sharex=False, sharey=False, constrained_layout=True, figsize=[7, 7])
+#fig.subplots_adjust(hspace=0.5)
+fig.suptitle('Semilog Plots of Weight Convergence', fontsize=12, fontweight='bold')
+
+# Plot the subplots
+# Plot 1
+ax[0,0].semilogy(breast_w_model_diff, 'b')
+ax[0,0].set_title('breast-w', fontsize=10)
+
+# Plot 2
+ax[0,1].semilogy(statlog_model_diff, 'b')
+ax[0,1].set_title('heart-statlog', fontsize = 10)
+
+# Plot 3
+ax[1,0].semilogy(iris_model_diff, 'b')
+ax[1,0].set_title('iris', fontsize=10)
+
+# Plot 4
+ax[1,1].semilogy(krkp_model_diff, 'b')
+ax[1,1].set_title('kr-vs-kp', fontsize=10)
+
+# Plot 5
+ax[2,0].semilogy(mushrooms_model_diff, 'b')
+ax[2,0].set_title('mushroom', fontsize = 10)
+
+# Plot 6
+ax[2,1].semilogy(zoo_model_diff, 'b')
+ax[2,1].set_title('zoo', fontsize = 10)
+
+# Adding a plot in the figure which will encapsulate all the subplots with axis showing only
+fig.add_subplot(1, 1, 1, frame_on=False)
+
+# Hiding the axis ticks and tick labels of the bigger plot
+plt.tick_params(labelcolor="none", bottom=False, left=False)
+
+# Adding the x-axis and y-axis labels for the bigger plot
+plt.show()
+
+

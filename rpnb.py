@@ -53,16 +53,12 @@ class RPNB:
         plt.xlabel("Iteration")
         plt.ylabel("Loss")
 
-    def plot_convergence(self , model):
+    def norm_differnces(self , model):
         weights = model.M[1]
         optimal_weights = model.M[0]
         differences = []
         for i in range(len(weights)):
             differences.append(np.linalg.norm(weights[i] - optimal_weights, 'fro'))
-        plt.plot(differences)
-        plt.semilogy(differences)
-        plt.title("Semilog plot of Norm Differences of Weights_i vs Optimal Weights")
-        plt.xlabel("Iteration")
-        plt.ylabel("Norm Difference")
+        return differences
             
 
