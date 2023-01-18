@@ -187,7 +187,7 @@ class Optimization:
         num_c = self.num_classes
         num_atts = len(self.training_samples.columns)
         converged = False
-        learning_rate = 0.01
+        learning_rate = 0.0075
         
         if(self.max_iter > 0):
             print("_Optimizing_...\n")
@@ -216,7 +216,7 @@ class Optimization:
             if(iteration > 0):
                 converged = self.convergence_check(loss_values[-2], loss_values[-1])
     
-            print("Iteration:", iteration+1)
+            '''print("Iteration:", iteration+1)
             print("Wolfe's Alpha:", learning_rate)
             print("Penalty Term:", self.lambda_term)
             print("Posterior Cache First Sample:", posterior_cache[0])
@@ -224,7 +224,7 @@ class Optimization:
             print("Gradient Weight Matrix Norm:", gradient_norm)
             print("Model Loss:", loss)
             print("Converged:", converged)
-            print("=================================================================")
+            print("=================================================================")'''
             
             iteration += 1
             
