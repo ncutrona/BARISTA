@@ -16,8 +16,8 @@ zoo = pd.read_csv('/Users/nicolascutrona/Desktop/RPNB Data/zoo.csv')
 
 #Experimentation Set Up
 test_split = 0.25
-convergence = 1e-8
-max_iterations = 17500
+convergence = 1e-7
+max_iterations = 5000
 k = 5
 beta_1 = 0.85
 beta_2 = 0.15

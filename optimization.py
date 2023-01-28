@@ -8,7 +8,7 @@ import time
 class Optimization:
 
     def __init__(self, training_samples, training_labels, max_iter, convergence_constant, lambda_term, beta_1, beta_2):
-        print("_Computing Model Parameters_...\n")
+        #print("_Computing Model Parameters_...\n")
         self.beta_1 = beta_1
         self.beta_2 = beta_2
         self.convergence_constant = convergence_constant
@@ -187,10 +187,10 @@ class Optimization:
         num_c = self.num_classes
         num_atts = len(self.training_samples.columns)
         converged = False
-        learning_rate = 0.0075
+        learning_rate = 0.01
         
-        if(self.max_iter > 0):
-            print("_Optimizing_...\n")
+        #if(self.max_iter > 0):
+            #print("_Optimizing_...\n")
         
         while(converged != True and iteration < self.max_iter):
             flat_weight_matrix_gradient = []
