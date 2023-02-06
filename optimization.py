@@ -252,7 +252,7 @@ class Optimization:
         
         #Initial Loss
         posterior_cache = self.get_posterior_cache(self.weight_matrix)
-        #loss = self.objective_function(posterior_cache, self.weight_matrix)
+        loss = self.objective_function(posterior_cache, self.weight_matrix)
         #print("Initial Loss:", loss)
         
         #if(self.max_iter > 0):
@@ -328,7 +328,7 @@ class Optimization:
             print("Posterior Cache First Sample:", posterior_cache[0])
             print("Weight Matrix:", self.weight_matrix)
             print("Gradient Weight Matrix Norm:", gradient_norm)'''
-            #print("Model Loss:", loss)
+            print("Model Loss:", loss)
             '''print("Converged:", converged)
             print("=================================================================")'''
             

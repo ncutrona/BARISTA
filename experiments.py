@@ -79,6 +79,9 @@ print("zoo_accuarcy:", zoo_accuracy)
 breast_test_model = breast_w_model.final_model()
 breast_w_model_diff = breast_w_model.norm_differnces(breast_test_model) 
 
+statlog_test_model = statlog_model.final_model()
+statlog_model_diff = statlog_model.norm_differnces(statlog_test_model)
+
 iris_test_model = iris_model.final_model()
 iris_model_diff = iris_model.norm_differnces(iris_test_model)
 
@@ -87,9 +90,6 @@ krkp_model_diff = krkp_model.norm_differnces(krkp_test_model)
 
 mushrooms_test_model = mushrooms_model.final_model()
 mushrooms_model_diff = mushrooms_model.norm_differnces(mushrooms_test_model) 
-
-statlog_test_model = statlog_model.final_model()
-statlog_model_diff = statlog_model.norm_differnces(statlog_test_model)
 
 zoo_test_model = zoo_model.final_model()
 zoo_model_diff = zoo_model.norm_differnces(zoo_test_model)
