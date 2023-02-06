@@ -8,7 +8,9 @@ import preprocessing
 
 class RPNB:
     
-    def __init__(self, k, dataframe, target_attribute, test_split, continous_attributes, max_iter, convergence_constant, lambda_parameters, beta_1, beta_2):
+    def __init__(self, learning_rate, val_task, k, dataframe, target_attribute, test_split, continous_attributes, max_iter, convergence_constant, lambda_parameters, beta_1, beta_2):
+        self.learning_rate = learning_rate
+        self.val_task = val_task
         self.k = k
         self.dataframe = dataframe
         self.target_attribute = target_attribute
@@ -24,9 +26,13 @@ class RPNB:
         self.best_lambda = self.get_best_lambda()
 
     def get_best_lambda(self):
-        return cross_validation.CrossValidation(self.k, self.training_samples, self.training_labels, self.max_iter, self.convergence_constant, self.lambda_parameters, self.beta_1, self.beta_2).best_lambda
+        if(self.val_task[0]):
+            return cross_validation.CrossValidation(self.learning_rate, self.k, self.training_samples, self.training_labels, self.max_iter, self.convergence_constant, self.lambda_parameters, self.beta_1, self.beta_2).best_lambda
+        else:
+            return self.val_task[1]
 
     def ten_fold_simulation(self):
+        print(self.best_lambda)
         cross_accuracies = []
         kf = KFold(n_splits = 10)
         target = self.dataframe[self.target_attribute]
@@ -38,12 +44,12 @@ class RPNB:
             X_test = X_test.reset_index(drop=True)
             y_train = y_train.reset_index(drop=True)
             y_test = y_test.reset_index(drop=True)
-            cross_accuracies.append(framework.Framework(X_train, y_train, X_test, y_test, self.max_iter, self.convergence_constant, self.best_lambda, self.beta_1, self.beta_2).test_accuracy)
+            cross_accuracies.append(framework.Framework(self.learning_rate, X_train, y_train, X_test, y_test, self.max_iter, self.convergence_constant, self.best_lambda, self.beta_1, self.beta_2).test_accuracy)
         return np.mean(cross_accuracies)
 
     def final_model(self):
         print("\n__Optimized Model__")
-        model = framework.Framework(self.training_samples, self.training_labels, self.testing_samples, self.testing_labels, self.max_iter, self.convergence_constant, self.best_lambda, self.beta_1, self.beta_2)
+        model = framework.Framework(self.learning_rate, self.training_samples, self.training_labels, self.testing_samples, self.testing_labels, self.max_iter, self.convergence_constant, self.best_lambda, self.beta_1, self.beta_2)
         return model
 
     def plot_results(self, model):

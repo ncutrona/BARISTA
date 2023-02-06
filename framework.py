@@ -5,7 +5,8 @@ import posteriors
 
 class Framework:
 
-    def __init__(self, training_samples, training_labels, testing_samples, testing_labels, max_iter, convergence_constant, lambda_term, beta_1, beta_2):
+    def __init__(self, learning_rate, training_samples, training_labels, testing_samples, testing_labels, max_iter, convergence_constant, lambda_term, beta_1, beta_2):
+        self.learning_rate = learning_rate
         self.training_samples = training_samples
         self.training_labels = training_labels
         self.testing_samples = testing_samples
@@ -19,7 +20,7 @@ class Framework:
         self.label_values = np.unique(self.training_labels)
         self.beta_1 = beta_1
         self.beta_2 = beta_2
-        self.optimized_model = optimization.Optimization(self.training_samples, self.training_labels, self.max_iter, self.convergence_constant, self.lambda_term, self.beta_1, self.beta_2)
+        self.optimized_model = optimization.Optimization(self.learning_rate, self.training_samples, self.training_labels, self.max_iter, self.convergence_constant, self.lambda_term, self.beta_1, self.beta_2)
         self.M = self.optimized_model.M
         self.training_loss = self.optimized_model.loss
         self.priors = self.optimized_model.priors

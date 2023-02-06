@@ -5,7 +5,8 @@ import framework
 
 class CrossValidation:
 
-    def __init__(self, k, training_samples, training_labels, max_iter, convergence_constant, lambda_parameters, beta_1, beta_2):
+    def __init__(self, learning_rate, k, training_samples, training_labels, max_iter, convergence_constant, lambda_parameters, beta_1, beta_2):
+        self.learning_rate = learning_rate
         self.k = k
         self.training_samples = training_samples
         self.training_labels = training_labels
@@ -26,7 +27,7 @@ class CrossValidation:
             X_test = X_test.reset_index(drop=True)
             y_train = y_train.reset_index(drop=True)
             y_test = y_test.reset_index(drop=True)
-            cross_accuracies.append(framework.Framework(X_train, y_train, X_test, y_test, self.max_iter, self.convergence_constant, penalty, self.beta_1, self.beta_2).test_accuracy)
+            cross_accuracies.append(framework.Framework(self.learning_rate, X_train, y_train, X_test, y_test, self.max_iter, self.convergence_constant, penalty, self.beta_1, self.beta_2).test_accuracy)
         return np.mean(cross_accuracies)
 
     def get_best_parameter(self):

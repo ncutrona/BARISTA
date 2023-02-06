@@ -43,20 +43,31 @@ zoo_continuous = []
 zoo_target = '17'
 
 #experiments
-breast_w_model = rpnb.RPNB(k, breast_w, breast_w_target, test_split, breast_w_continuous, max_iterations, convergence, lambda_terms, beta_1, beta_2)
+breast_w_model = rpnb.RPNB(0.01, [True, None], k, breast_w, breast_w_target, test_split, breast_w_continuous, max_iterations, convergence, lambda_terms, beta_1, beta_2)
 breast_w_accuracy = breast_w_model.ten_fold_simulation()
-iris_model = rpnb.RPNB(k, iris, iris_target, test_split, iris_continuous, max_iterations, convergence, lambda_terms, beta_1, beta_2)
-iris_accuracy = iris_model.ten_fold_simulation()
-krkp_model = rpnb.RPNB(k, krkp, krkp_target, test_split, krkp_continuous, max_iterations, convergence, lambda_terms, beta_1, beta_2)
-krkp_accuracy = krkp_model.ten_fold_simulation()
-mushrooms_model = rpnb.RPNB(k, mushrooms, mushrooms_target, test_split, mushrooms_continuous, max_iterations, convergence, lambda_terms, beta_1, beta_2)
-mushrooms_accuracy = mushrooms_model.ten_fold_simulation()
-statlog_model = rpnb.RPNB(k, statlog, statlog_target, test_split, statlog_continuous, max_iterations, convergence, lambda_terms, beta_1, beta_2)
+
+
+statlog_model = rpnb.RPNB(0.01, [True, None], k, statlog, statlog_target, test_split, statlog_continuous, max_iterations, convergence, lambda_terms, beta_1, beta_2)
 statlog_accuracy = statlog_model.ten_fold_simulation()
-zoo_model = rpnb.RPNB(k, zoo, zoo_target, test_split, zoo_continuous, max_iterations, convergence, lambda_terms, beta_1, beta_2)
+
+
+iris_model = rpnb.RPNB(0.01, [True, None], k, iris, iris_target, test_split, iris_continuous, max_iterations, convergence, lambda_terms, beta_1, beta_2)
+iris_accuracy = iris_model.ten_fold_simulation()
+
+
+krkp_model = rpnb.RPNB(0.05, [True, None], k, krkp, krkp_target, test_split, krkp_continuous, max_iterations, convergence, lambda_terms, beta_1, beta_2)
+krkp_accuracy = krkp_model.ten_fold_simulation()
+
+
+mushrooms_model = rpnb.RPNB(0.01, [True, None], k, mushrooms, mushrooms_target, test_split, mushrooms_continuous, max_iterations, convergence, lambda_terms, beta_1, beta_2)
+mushrooms_accuracy = mushrooms_model.ten_fold_simulation()
+
+
+zoo_model = rpnb.RPNB(0.01, [True, None], k, zoo, zoo_target, test_split, zoo_continuous, max_iterations, convergence, lambda_terms, beta_1, beta_2)
 zoo_accuracy = zoo_model.ten_fold_simulation()
 
-print("breast_w accuracy:", breast_w_accuracy)
+
+print("breast_w_accuracy:", breast_w_accuracy)
 print("statlog_accuracy:", statlog_accuracy)
 print("iris_accuracy:", iris_accuracy)
 print("krkp_accuracy:", krkp_accuracy)
