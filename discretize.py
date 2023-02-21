@@ -11,7 +11,7 @@ class MDLP:
         self.discretize(self.attribute)
 
     def ki(self, si):
-        return np.unique(si) #number of target values
+        return np.unique(si)
 
     def entropy(self, s):
         k = len(self.ki(s))
