@@ -90,7 +90,7 @@ class Optimization:
     def model_loss(self,):
         return self.differentiable_objective_term() + self.non_differentiable_objective_term()
 
-    def delta_Wij(self, class_index, attribute_index):
+    def grad_Wij(self, class_index, attribute_index):
         different_class_sum = 0
         same_class_sum = 0
         for i in range(self.num_samples):
@@ -146,17 +146,31 @@ class Optimization:
         
         gradient_matrix = np.zeros((self.num_classes, self.num_attributes))
         while(converged != True and iteration < self.max_iter):
-            for i in range(self.num_classes):
-                for j in range(self.num_attributes):
-                    gradient_ij = self.delta_Wij(i,j)
-                    gradient_matrix[i][j] = gradient_ij
-                    gd_update = weights[i][j] - (self.learning_rate * gradient_matrix[i][j])
-                    proximal_update = self.soft_thresholding(gd_update, self.learning_rate)
-                    weights[i][j] = proximal_update
+            learning_rate = np.copy(self.learning_rate)
+            while(learning_rate > 0.0005):
+                flag = False
+                current_weights = np.copy(weights)
+                for i in range(self.num_classes):
+                    for j in range(self.num_attributes):
+                        gradient_ij = self.grad_Wij(i,j)
+                        gradient_matrix[i][j] = gradient_ij
+                        gd_update = current_weights[i][j] - (learning_rate * gradient_matrix[i][j])
+                        proximal_update = self.soft_thresholding(gd_update, learning_rate)
+                        current_weights[i][j] = proximal_update
+                
+                self.weights = current_weights
+                self.posterior_probabability_distribution = self.posterior_probabilities()
+                loss = self.model_loss()
 
-            self.weights = weights  
-            self.posterior_probabability_distribution = self.posterior_probabilities()
-            loss = self.model_loss()
+                if(loss > loss_values [-1]):
+                    learning_rate *= 0.5
+                else:
+                    flag = True
+                    break
+
+            if(flag == False):
+                learning_rate = learning_rate * 2
+            weights = np.copy(self.weights)
             weight_collection.append(self.weights)
             gradient_norm = self.gradient_norm(self.weights.flatten())
             loss_values.append(loss)
@@ -168,7 +182,8 @@ class Optimization:
                 #min_eig = min(np.linalg.eig(H)[0])
                 #min_eig_values.append(min_eig)
 
-            print("Iteration:", iteration+1)
+            print("Iteration:", iteration)
+            print("Learning Rate:", learning_rate)
             print("Penalty Term:", self.penalty)
             print("Posterior Cache First Sample:", self.posterior_probabability_distribution[0])
             print("Weight Matrix:", self.weights)

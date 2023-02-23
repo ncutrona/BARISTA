@@ -11,7 +11,7 @@ class ERNB:
         pass
 
 
-    def fit(self, training_samples, training_labels, learning_rate = 0.01, convergence_constant = 1e-7, max_iterations = 5000, penalty = 0.01):
+    def fit(self, training_samples, training_labels, learning_rate = 0.01, convergence_constant = 1e-8, max_iterations = 5000, penalty = 0.01):
         self.training_samples = training_samples
         self.training_labels = training_labels
         self.learning_rate = learning_rate
