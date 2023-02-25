@@ -182,17 +182,17 @@ class Optimization:
                 #min_eig = min(np.linalg.eig(H)[0])
                 #min_eig_values.append(min_eig)
 
-            print("Iteration:", iteration)
+            '''print("Iteration:", iteration)
             print("Learning Rate:", learning_rate)
             print("Penalty Term:", self.penalty)
             print("Posterior Cache First Sample:", self.posterior_probabability_distribution[0])
             print("Weight Matrix:", self.weights)
             print("Gradient Weight Matrix Norm:", gradient_norm)
-            print("Model Loss:", loss)
+            print("Model Loss:", loss)'''
             #if(iteration%20 ==0):
                 #print("Min Eigenvalue:", min_eig)
-            print("Converged:", converged)
-            print("=================================================================")
+            #print("Converged:", converged)
+            #print("=================================================================")
             
             iteration += 1
             
