@@ -9,8 +9,7 @@ from sklearn.model_selection import train_test_split
 plt.rcParams['font.family'] = 'serif'
 
 
-#penalties = [0.01, 0.03, 0.06, 0.09, 0.12]
-penalties = [0.1]
+penalties = [0.01, 0.03, 0.06, 0.09, 0.12]
 def cross_val(X, y, learning_rate, penalty):
     cross_accuracies = []
     kf = KFold(n_splits=5, random_state=None, shuffle=True)
@@ -23,7 +22,7 @@ def cross_val(X, y, learning_rate, penalty):
         y_train = y_train.reset_index(drop=True)
         y_test = y_test.reset_index(drop=True)
         ernb = ERNB.ERNB()
-        ernb.fit(X_train, y_train, penalty=penalty, learning_rate = learning_rate, max_iterations=3)
+        ernb.fit(X_train, y_train, penalty=penalty, learning_rate = learning_rate)
         ernb.predict(X_test, y_test)
         cross_accuracies.append(ernb.accuracy)
         split += 1
