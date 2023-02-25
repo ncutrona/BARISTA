@@ -84,3 +84,9 @@ class ERNB:
             if(predictions[i] != ground_truth[i]):
                 errors += 1
         return 1 - (errors/len(predictions))
+    
+    def norm_differnces(self):
+        differences = []
+        for i in range(len(self.weight_collection)):
+            differences.append(np.linalg.norm(self.weight_collection[i] - self.optimal_weights, 'fro'))
+        return differences
