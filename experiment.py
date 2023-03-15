@@ -8,7 +8,7 @@ from sklearn.model_selection import KFold
 from sklearn.model_selection import train_test_split
 plt.rcParams['font.family'] = 'serif'
 
-
+#Comment
 penalties = [0.01, 0.03, 0.06, 0.09, 0.12]
 def cross_val(X, y, learning_rate, penalty):
     cross_accuracies = []
