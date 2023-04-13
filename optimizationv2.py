@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 import bayes_computation
 import numdifftools as nd
-import matplotlib.pyplot as plt
 
 class Optimization:
 
@@ -35,8 +34,6 @@ class Optimization:
 
     def initialize_weight_matrix(self):
         return np.ones(shape = (self.num_classes, self.num_attributes))
-        #return np.random.random((self.num_classes, self.num_attributes))
-
 
     def get_ground_truth(self):
         ground_truths = []
@@ -73,36 +70,40 @@ class Optimization:
     def posterior_probabilities(self): 
         posterior_distributions = []
         for i in range(self.num_samples): 
-            posteriors = self.regularized_posterior(self.likelihood_probabilities[i], self.weights)
-            posterior_distributions.append(posteriors)
+            posterior = self.regularized_posterior(self.likelihood_probabilities[i], self.weights)
+            posterior_distributions.append(posterior)
         return posterior_distributions 
     
-    def model_loss(self,):
-        log_likelihood_sum = 0
+    def differentiable_objective_term(self):
+        scale = 1/2
+        loss = 0
         for i in range(self.num_samples):
-            sample_truth_index = self.ground_truths[i].index(max(self.ground_truths[i]))
-            sample_posterior = self.posterior_probabability_distribution[i][sample_truth_index]
-            if(sample_posterior == 0):
-                 sample_posterior += np.finfo(float).eps
-            log_likelihood_sum += np.log(sample_posterior)
-        return -1 * log_likelihood_sum
+            loss_i = 0
+            for j in range(self.num_classes):
+                loss_i += np.square((self.ground_truths[i][j] - self.posterior_probabability_distribution[i][j]))
+            loss += loss_i       
+        return scale * loss 
 
-    def gradient(self, weights):
-        l2 = 0.02 * (weights ** 2)
-        E = np.zeros(shape = (self.num_classes, self.num_attributes))
+    def non_differentiable_objective_term(self):
+        return np.sum(np.abs(self.weights.flatten()))
+    
+    def model_loss(self,):
+        return self.differentiable_objective_term() + self.non_differentiable_objective_term()
+
+    def grad_Wij(self, class_index, attribute_index):
+        different_class_sum = 0
+        same_class_sum = 0
         for i in range(self.num_samples):
-            sample_truth_index = self.ground_truths[i].index(max(self.ground_truths[i]))
-            for k in range(self.num_attributes):
-                #C' = C
-                log_likelihood = np.log(self.likelihood_probabilities[i][sample_truth_index][k])
-                E[sample_truth_index][k] += (-1 * log_likelihood)
-                #C' != C and C' = C
-                for c in range(self.num_classes):
-                    log_likelihood = np.log(self.likelihood_probabilities[i][c][k])
-                    sample_posterior_c = self.posterior_probabability_distribution[i][c]
-                    #print("\n", "Sample Posterior:", sample_posterior_c, " Log Likelihood:", log_likelihood, "\n", "Value:", sample_posterior_c * log_likelihood)
-                    E[c][k] += (sample_posterior_c * log_likelihood)       
-        return E + l2
+            log_likelihood = np.log(self.likelihood_probabilities[i][class_index][attribute_index])
+            same_class_phat_estimation = self.posterior_probabability_distribution[i][class_index]
+            same_class_ground_truth = self.ground_truths[i][class_index]
+            same_class_sum += ((same_class_ground_truth - same_class_phat_estimation) * (same_class_phat_estimation * (1-same_class_phat_estimation) * log_likelihood))
+            for j in range(self.num_classes):
+                if(j != class_index):
+                    different_class_ground_truth = self.ground_truths[i][j]
+                    different_class_phat_estimation = self.posterior_probabability_distribution[i][j]
+                    different_class_sum += (different_class_ground_truth - different_class_phat_estimation) * (different_class_phat_estimation * same_class_phat_estimation * log_likelihood)
+        return different_class_sum - same_class_sum
 
     def soft_thresholding(self, update, learning_rate):
         boundary = (learning_rate * self.penalty) / 2
@@ -128,7 +129,7 @@ class Optimization:
             return converged
     
     def gradient_norm(self, gradient):
-        grad_norm = np.linalg.norm(gradient, 'fro')
+        grad_norm = round(np.sqrt(np.sum(np.square(gradient))), 6)
         return grad_norm
 
     def model_learning(self):
@@ -139,35 +140,39 @@ class Optimization:
         iteration = 1
         converged = False
         loss = self.model_loss()
-        print("Initial Loss:", loss)
         loss_values.append(loss)
         #Hessian_obj = nd.Hessian(self.obj_func)
         #min_eig_values = []
         
+        gradient_matrix = np.zeros((self.num_classes, self.num_attributes))
         while(converged != True and iteration < self.max_iter):
             learning_rate = np.copy(self.learning_rate)
             while(learning_rate > 0.0005):
+                flag = False
                 current_weights = np.copy(weights)
-                gradient_matrix = self.gradient(current_weights)
-                current_weights = current_weights - (learning_rate * gradient_matrix)
                 for i in range(self.num_classes):
                     for j in range(self.num_attributes):
-                        current_weights[i][j] = self.soft_thresholding(current_weights[i][j], learning_rate)
-
+                        gradient_ij = self.grad_Wij(i,j)
+                        gradient_matrix[i][j] = gradient_ij
+                        gd_update = current_weights[i][j] - (learning_rate * gradient_matrix[i][j])
+                        proximal_update = self.soft_thresholding(gd_update, learning_rate)
+                        current_weights[i][j] = proximal_update
+                
                 self.weights = current_weights
                 self.posterior_probabability_distribution = self.posterior_probabilities()
                 loss = self.model_loss()
 
-                if(loss < loss_values [-1]):
-                    print("\n",gradient_matrix, "\n")
-                    break
-                else:
+                if(loss > loss_values [-1]):
                     learning_rate *= 0.5
-                    
-            
+                else:
+                    flag = True
+                    break
+
+            if(flag == False):
+                learning_rate = learning_rate * 2
             weights = np.copy(self.weights)
             weight_collection.append(self.weights)
-            gradient_norm = self.gradient_norm(gradient_matrix)
+            gradient_norm = self.gradient_norm(self.weights.flatten())
             loss_values.append(loss)
             converged = self.convergence_check(loss_values[-2], loss_values[-1])
 
@@ -177,13 +182,13 @@ class Optimization:
                 #min_eig = min(np.linalg.eig(H)[0])
                 #min_eig_values.append(min_eig)
 
-            print("Iteration:", iteration)
+            '''print("Iteration:", iteration)
             print("Learning Rate:", learning_rate)
             print("Penalty Term:", self.penalty)
             print("Posterior Cache First Sample:", self.posterior_probabability_distribution[0])
             print("Weight Matrix:", self.weights)
-            print("Gradient Norm:", gradient_norm)
-            print("Model Loss:", loss)
+            print("Gradient Weight Matrix Norm:", gradient_norm)
+            print("Model Loss:", loss)'''
             #if(iteration%20 ==0):
                 #print("Min Eigenvalue:", min_eig)
             #print("Converged:", converged)
@@ -193,12 +198,9 @@ class Optimization:
             
         self.loss = loss_values
         if(converged):
-            print("_Optimization Successful_")
-            plt.plot(loss_values)  
+            print("_Optimization Successful_")  
             return [self.weights, weight_collection]  
         else:
             print("_Optimization Failed_")
-            plt.plot(loss_values)
-            plt.show()
             return [self.weights, weight_collection]
         
