@@ -44,7 +44,7 @@ def experiment(X, y, learning_rate, penalties):
 
 
 
-#Loading The Data (Enter File Path)
+'''#Loading The Data (Enter File Path)
 breast_w = pd.read_csv('/Users/nicolascutrona/Desktop/RPNB Data/breast_w.csv')
 breast_w = preprocess.Preprocess(breast_w, "Class", [])
 X, y = breast_w.get_data()
@@ -54,11 +54,11 @@ X_test = X_test.reset_index(drop=True)
 y_train = y_train.reset_index(drop=True)
 y_test = y_test.reset_index(drop=True)
 ernb = ERNB.ERNB()
-ernb.fit(X_train, y_train, penalty = 0.1, learning_rate = 0.1, max_iterations=150)
+ernb.fit(X_train, y_train, penalty = 0.1, learning_rate = 0.1, max_iterations=1000, convergence_constant=1e-7)
 ernb.predict(X_test, y_test)
 print("Testing Accuracy:", ernb.accuracy)
 
-'''statlog = pd.read_csv('/Users/nicolascutrona/Desktop/RPNB Data/statlog.csv')
+statlog = pd.read_csv('/Users/nicolascutrona/Desktop/RPNB Data/statlog.csv')
 statlog = preprocess.Preprocess(statlog, "Target", ['age', 'resting_blood_pressure', 'serum_chol', 'max_hr', 'oldpeak'])
 X, y = statlog.get_data()
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
@@ -67,7 +67,7 @@ X_test = X_test.reset_index(drop=True)
 y_train = y_train.reset_index(drop=True)
 y_test = y_test.reset_index(drop=True)
 ernb = ERNB.ERNB()
-ernb.fit(X_train, y_train, penalty = 0.1, learning_rate = 0.1, max_iterations=50)
+ernb.fit(X_train, y_train, penalty = 0.01, learning_rate = 0.1, max_iterations=1000)
 ernb.predict(X_test, y_test)
 print("Testing Accuracy:", ernb.accuracy)'''
 
@@ -76,12 +76,13 @@ print("Testing Accuracy:", ernb.accuracy)'''
 
 
 
+breast_w = pd.read_csv('/Users/nicolascutrona/Desktop/RPNB Data/breast_w.csv')
+breast_w = preprocess.Preprocess(breast_w, "Class", [])
+X, y = breast_w.get_data()
+best_parameter, experimental_accuracy, breast_w_differences = experiment(X,y, learning_rate = 0.1, penalties=penalties)
+print("breast-w 5FCV Accuracy:", experimental_accuracy, "Best Penalty:", best_parameter)
 
-
-#best_parameter, experimental_accuracy, breast_w_differences = experiment(X,y, learning_rate = 0.1, penalties=penalties)
-#print("breast-w 5FCV Accuracy:", experimental_accuracy, "Best Penalty:", best_parameter)
-
-'''statlog = pd.read_csv('/Users/nicolascutrona/Desktop/RPNB Data/statlog.csv')
+statlog = pd.read_csv('/Users/nicolascutrona/Desktop/RPNB Data/statlog.csv')
 statlog = preprocess.Preprocess(statlog, "Target", ['age', 'resting_blood_pressure', 'serum_chol', 'max_hr', 'oldpeak'])
 X, y = statlog.get_data()
 best_parameter, experimental_accuracy, statlog_differences = experiment(X,y, learning_rate = 0.1, penalties=penalties)
@@ -150,4 +151,4 @@ fig.add_subplot(1, 1, 1, frame_on=False)
 plt.tick_params(labelcolor="none", bottom=False, left=False)
 
 # Adding the x-axis and y-axis labels for the bigger plot
-plt.show()'''
+plt.show()

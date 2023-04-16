@@ -88,7 +88,7 @@ class Optimization:
         return -1 * log_likelihood_sum
 
     def gradient(self, weights):
-        l2 = 0.02 * (weights ** 2)
+        l2 = 0.02 * 2*(weights)
         E = np.zeros(shape = (self.num_classes, self.num_attributes))
         for i in range(self.num_samples):
             sample_truth_index = self.ground_truths[i].index(max(self.ground_truths[i]))
@@ -102,7 +102,7 @@ class Optimization:
                     sample_posterior_c = self.posterior_probabability_distribution[i][c]
                     #print("\n", "Sample Posterior:", sample_posterior_c, " Log Likelihood:", log_likelihood, "\n", "Value:", sample_posterior_c * log_likelihood)
                     E[c][k] += (sample_posterior_c * log_likelihood)       
-        return E + l2
+        return 1/self.num_samples * (E + l2)
 
     def soft_thresholding(self, update, learning_rate):
         boundary = (learning_rate * self.penalty) / 2
@@ -194,11 +194,12 @@ class Optimization:
         self.loss = loss_values
         if(converged):
             print("_Optimization Successful_")
-            plt.plot(loss_values)  
+            #plt.plot(loss_values)  
+            #plt.show()
             return [self.weights, weight_collection]  
         else:
             print("_Optimization Failed_")
-            plt.plot(loss_values)
-            plt.show()
+            #plt.plot(loss_values)
+            #plt.show()
             return [self.weights, weight_collection]
         
