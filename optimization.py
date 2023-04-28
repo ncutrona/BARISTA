@@ -19,6 +19,7 @@ class Optimization:
         self.label_values = np.unique(self.training_labels)
         self.sample_attributes = self.training_samples.columns
         self.num_attributes = len(self.sample_attributes)
+        self.gradient_matrix = np.ones((self.num_classes, self.num_attributes))
         
         self.bayes_object = bayes_computation.Bayes_Computation(self.training_samples, self.training_labels)
         self.prior_probabilities = self.bayes_object.prior_probabilities()
@@ -88,7 +89,7 @@ class Optimization:
         return -1 * log_likelihood_sum
 
     def gradient(self, weights):
-        l2 = 0.02 * 2*(weights)
+        l2 = 0.2 * 2*(weights)
         E = np.zeros(shape = (self.num_classes, self.num_attributes))
         for i in range(self.num_samples):
             sample_truth_index = self.ground_truths[i].index(max(self.ground_truths[i]))
@@ -100,9 +101,8 @@ class Optimization:
                 for c in range(self.num_classes):
                     log_likelihood = np.log(self.likelihood_probabilities[i][c][k])
                     sample_posterior_c = self.posterior_probabability_distribution[i][c]
-                    #print("\n", "Sample Posterior:", sample_posterior_c, " Log Likelihood:", log_likelihood, "\n", "Value:", sample_posterior_c * log_likelihood)
                     E[c][k] += (sample_posterior_c * log_likelihood)       
-        return 1/self.num_samples * (E + l2)
+        return (1/self.num_samples) * (E + l2)
 
     def soft_thresholding(self, update, learning_rate):
         boundary = (learning_rate * self.penalty) / 2
@@ -144,12 +144,12 @@ class Optimization:
         #Hessian_obj = nd.Hessian(self.obj_func)
         #min_eig_values = []
         
-        while(converged != True and iteration < self.max_iter):
+        while(converged != True and iteration <= self.max_iter):
             learning_rate = np.copy(self.learning_rate)
-            while(learning_rate > 0.0005):
+            while(learning_rate > 5e-4):
                 current_weights = np.copy(weights)
-                gradient_matrix = self.gradient(current_weights)
-                current_weights = current_weights - (learning_rate * gradient_matrix)
+                self.gradient_matrix = self.gradient(current_weights)
+                current_weights = current_weights - (learning_rate * self.gradient_matrix)
                 for i in range(self.num_classes):
                     for j in range(self.num_attributes):
                         current_weights[i][j] = self.soft_thresholding(current_weights[i][j], learning_rate)
@@ -159,7 +159,6 @@ class Optimization:
                 loss = self.model_loss()
 
                 if(loss < loss_values [-1]):
-                    print("\n",gradient_matrix, "\n")
                     break
                 else:
                     learning_rate *= 0.5
@@ -167,7 +166,7 @@ class Optimization:
             
             weights = np.copy(self.weights)
             weight_collection.append(self.weights)
-            gradient_norm = self.gradient_norm(gradient_matrix)
+            gradient_norm = self.gradient_norm(self.gradient_matrix)
             loss_values.append(loss)
             converged = self.convergence_check(loss_values[-2], loss_values[-1])
 
@@ -181,9 +180,11 @@ class Optimization:
             print("Learning Rate:", learning_rate)
             print("Penalty Term:", self.penalty)
             print("Posterior Cache First Sample:", self.posterior_probabability_distribution[0])
-            print("Weight Matrix:", self.weights)
-            print("Gradient Norm:", gradient_norm)
-            print("Model Loss:", loss)
+            print("\nWeight Matrix:", self.weights)
+            print("\nGradient Norm:", gradient_norm)
+            print("\nGradient Matrix:", self.gradient_matrix)
+            print("\nModel Loss:", loss)
+            print("==============================================================================================================================\n")
             #if(iteration%20 ==0):
                 #print("Min Eigenvalue:", min_eig)
             #print("Converged:", converged)
@@ -194,12 +195,12 @@ class Optimization:
         self.loss = loss_values
         if(converged):
             print("_Optimization Successful_")
-            #plt.plot(loss_values)  
-            #plt.show()
+            plt.plot(loss_values)  
+            plt.show()
             return [self.weights, weight_collection]  
         else:
             print("_Optimization Failed_")
-            #plt.plot(loss_values)
-            #plt.show()
+            plt.plot(loss_values)
+            plt.show()
             return [self.weights, weight_collection]
         
