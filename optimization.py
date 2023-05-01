@@ -102,7 +102,7 @@ class Optimization:
                     log_likelihood = np.log(self.likelihood_probabilities[i][c][k])
                     sample_posterior_c = self.posterior_probabability_distribution[i][c]
                     E[c][k] += (sample_posterior_c * log_likelihood)       
-        return (1/self.num_samples) * (E + l2)
+        return ((1/self.num_samples) * (E)) + l2
 
     def soft_thresholding(self, update, learning_rate):
         boundary = (learning_rate * self.penalty) / 2
