@@ -163,7 +163,7 @@ class Optimization:
                 loss = self.model_loss()
 
                 previous_loss_no_penalty = loss_values[-1]-self.penalty*sum(abs(weights.reshape(-1)))
-                if(loss < quad_approx(current_weights, weights, previous_loss_no_penalty, learning_rate, self.gradient_matrix)):
+                if(loss < self.quad_approx(current_weights, weights, previous_loss_no_penalty, learning_rate, self.gradient_matrix)):
                     break
                 else:
                     learning_rate *= 0.5
