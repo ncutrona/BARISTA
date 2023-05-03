@@ -86,7 +86,7 @@ class Optimization:
             if(sample_posterior == 0):
                  sample_posterior += np.finfo(float).eps
             log_likelihood_sum += np.log(sample_posterior)
-        return -1 * log_likelihood_sum
+        return -1 * log_likelihood_sum +  self.penalty*sum(abs(self.weights.reshape(-1)))
 
     def gradient(self, weights):
         l2 = 0.2 * 2*(weights)
