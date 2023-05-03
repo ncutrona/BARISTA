@@ -131,6 +131,10 @@ class Optimization:
         grad_norm = np.linalg.norm(gradient, 'fro')
         return grad_norm
 
+    def quad_approx(self, x, y, fy, learning_rate, gradient):
+        Q = fy + (x-y).reshape(-1).dot(gradient.reshape(-1)) + 1/(2*learning_rate)*np.linalg.norm(x-y)**2
+        return(Q)
+
     def model_learning(self):
         print("__Optimizing__...")
         weights = np.copy(self.weights)
@@ -146,7 +150,7 @@ class Optimization:
         
         while(converged != True and iteration <= self.max_iter):
             learning_rate = np.copy(self.learning_rate)
-            while(learning_rate > 5e-4):
+            while(learning_rate > 5e-8):
                 current_weights = np.copy(weights)
                 self.gradient_matrix = self.gradient(current_weights)
                 current_weights = current_weights - (learning_rate * self.gradient_matrix)
@@ -158,7 +162,8 @@ class Optimization:
                 self.posterior_probabability_distribution = self.posterior_probabilities()
                 loss = self.model_loss()
 
-                if(loss < loss_values [-1]):
+                previous_loss_no_penalty = loss_values[-1]-self.penalty*sum(abs(weights.reshape(-1)))
+                if(loss < quad_approx(current_weights, weights, previous_loss_no_penalty, learning_rate, self.gradient_matrix)):
                     break
                 else:
                     learning_rate *= 0.5
