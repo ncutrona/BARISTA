@@ -132,7 +132,8 @@ class Optimization:
         return grad_norm
 
     def quad_approx(self, x, y, fy, learning_rate, gradient):
-        Q = fy + (x-y).reshape(-1).dot(gradient.reshape(-1)) + 1/(2*learning_rate)*np.linalg.norm(x-y)**2
+        l1 = self.penalty*sum(abs(x.reshape(-1)))
+        Q = fy + (x-y).reshape(-1).dot(gradient.reshape(-1)) + 1/(2*learning_rate)*np.linalg.norm(x-y)**2 + l1
         return(Q)
 
     def model_learning(self):
