@@ -8,7 +8,7 @@ from sklearn.model_selection import KFold
 from sklearn.model_selection import train_test_split
 plt.rcParams['font.family'] = 'serif'
 
-#Comment
+
 penalties = [0.01, 0.03, 0.06, 0.09, 0.12]
 def cross_val(X, y, learning_rate, penalty):
     cross_accuracies = []
@@ -22,7 +22,7 @@ def cross_val(X, y, learning_rate, penalty):
         y_train = y_train.reset_index(drop=True)
         y_test = y_test.reset_index(drop=True)
         ernb = ERNB.ERNB()
-        ernb.fit(X_train, y_train, penalty=penalty, learning_rate = learning_rate)
+        ernb.fit(X_train, y_train, penalty=penalty, learning_rate = learning_rate, convergence_constant=1e-6)
         ernb.predict(X_test, y_test)
         cross_accuracies.append(ernb.accuracy)
         split += 1
@@ -44,10 +44,10 @@ def experiment(X, y, learning_rate, penalties):
 
 
 
-#Loading The Data (Enter File Path)
-#breast_w = pd.read_csv('/Users/nicolascutrona/Desktop/RPNB Data/breast_w_synth.csv',index_col=[0])
-#breast_w = breast_w.drop("random", axis = 1)
-#breast_w = breast_w.drop("r3", axis = 1)
+'''Loading The Data (Enter File Path)
+breast_w = pd.read_csv('/Users/nicolascutrona/Desktop/RPNB Data/breast_w_synth.csv',index_col=[0])
+breast_w = breast_w.drop("random", axis = 1)
+breast_w = breast_w.drop("r3", axis = 1)
 breast_w = pd.read_csv('/Users/nicolascutrona/Desktop/RPNB Data/breast_w.csv')
 breast_w = preprocess.Preprocess(breast_w, "Class", [])
 X, y = breast_w.get_data()
@@ -57,17 +57,12 @@ X_test = X_test.reset_index(drop=True)
 y_train = y_train.reset_index(drop=True)
 y_test = y_test.reset_index(drop=True)
 ernb = ERNB.ERNB()
-ernb.fit(X_train, y_train, penalty = 0.2, learning_rate = 0.1, max_iterations=5000, convergence_constant=1e-7)
+ernb.fit(X_train, y_train, penalty = 0.2, learning_rate = 0.1, max_iterations=5000, convergence_constant=1e-6)
 ernb.predict(X_test, y_test)
-print("Testing Accuracy:", ernb.accuracy)
+print("Testing Accuracy:", ernb.accuracy)'''
 
 
-
-
-
-
-
-'''breast_w = pd.read_csv('/Users/nicolascutrona/Desktop/RPNB Data/breast_w.csv')
+breast_w = pd.read_csv('/Users/nicolascutrona/Desktop/RPNB Data/breast_w.csv')
 breast_w = preprocess.Preprocess(breast_w, "Class", [])
 X, y = breast_w.get_data()
 best_parameter, experimental_accuracy, breast_w_differences = experiment(X,y, learning_rate = 0.1, penalties=penalties)
@@ -142,4 +137,4 @@ fig.add_subplot(1, 1, 1, frame_on=False)
 plt.tick_params(labelcolor="none", bottom=False, left=False)
 
 # Adding the x-axis and y-axis labels for the bigger plot
-plt.show()'''
+plt.show()

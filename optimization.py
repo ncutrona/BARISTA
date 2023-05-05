@@ -36,7 +36,7 @@ class Optimization:
 
     def initialize_weight_matrix(self):
         return np.ones(shape = (self.num_classes, self.num_attributes))
-        #return np.random.random((self.num_classes, self.num_attributes))
+        
 
 
     def get_ground_truth(self):
@@ -118,15 +118,22 @@ class Optimization:
             print("Proximal Descent Error --> will return 0")
             return 0 
 
-    def convergence_check(self, loss_old, loss_new):
+    '''def convergence_check(self, loss_old, loss_new):
         converged = False
         convergence_check = np.abs((loss_old - loss_new)/max(np.abs(loss_old), np.abs(loss_new), 1)) 
         if(convergence_check < self.convergence_constant):
             converged = True
             return converged
         else:
-            return converged
-    
+            return converged'''
+        
+    def convergence_check(self, weight_1, weight_2):
+        converged = False
+        convergence_criterion = np.sum(np.abs((weight_1 - weight_2)).flatten())
+        if(convergence_criterion < self.convergence_constant):
+            converged = True
+        return converged
+
     def gradient_norm(self, gradient):
         grad_norm = np.linalg.norm(gradient, 'fro')
         return grad_norm
@@ -140,7 +147,7 @@ class Optimization:
         print("__Optimizing__...")
         weights = np.copy(self.weights)
         loss_values = []
-        weight_collection = []
+        weight_collection = [weights]
         iteration = 1
         converged = False
         loss = self.model_loss()
@@ -151,7 +158,7 @@ class Optimization:
         
         while(converged != True and iteration <= self.max_iter):
             learning_rate = np.copy(self.learning_rate)
-            while(learning_rate > 5e-8):
+            while(learning_rate > 1e-8):
                 current_weights = np.copy(weights)
                 self.gradient_matrix = self.gradient(current_weights)
                 current_weights = current_weights - (learning_rate * self.gradient_matrix)
@@ -174,7 +181,7 @@ class Optimization:
             weight_collection.append(self.weights)
             gradient_norm = self.gradient_norm(self.gradient_matrix)
             loss_values.append(loss)
-            converged = self.convergence_check(loss_values[-2], loss_values[-1])
+            converged = self.convergence_check(weight_collection[-1], weight_collection[-2])
 
             #Convexity Analysis, Hessian PSD
             #if(iteration%20 == 0):
@@ -201,12 +208,12 @@ class Optimization:
         self.loss = loss_values
         if(converged):
             print("_Optimization Successful_")
-            plt.plot(loss_values)  
-            plt.show()
+            #plt.plot(loss_values)  
+            #plt.show()
             return [self.weights, weight_collection]  
         else:
             print("_Optimization Failed_")
-            plt.plot(loss_values)
-            plt.show()
+            #plt.plot(loss_values)
+            #plt.show()
             return [self.weights, weight_collection]
         
