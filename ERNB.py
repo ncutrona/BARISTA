@@ -11,16 +11,17 @@ class ERNB:
         pass
 
 
-    def fit(self, training_samples, training_labels, learning_rate = 0.01, convergence_constant = 1e-6, max_iterations = 5000, penalty = 0.01):
+    def fit(self, training_samples, training_labels, learning_rate = 0.01, convergence_constant = 1e-6, max_iterations = 5000, l1_penalty = 0.01, l2_penalty = 0.001):
         self.training_samples = training_samples
         self.training_labels = training_labels
         self.learning_rate = learning_rate
         self.convergence_constant = convergence_constant
         self.max_iterations = max_iterations
-        self.penalty = penalty
+        self.l1_penalty = l1_penalty
+        self.l2_penalty = l2_penalty
         
         print("Computing Model Parameters...")
-        self.model_training = optimization.Optimization(self.learning_rate, self.training_samples, self.training_labels,  self.max_iterations, self.convergence_constant, self.penalty)
+        self.model_training = optimization.Optimization(self.learning_rate, self.training_samples, self.training_labels,  self.max_iterations, self.convergence_constant, self.l1_penalty, self.l2_penalty)
         self.num_samples = self.model_training.training_samples
         self.num_classes = self.model_training.num_classes
         self.label_values = self.model_training.label_values

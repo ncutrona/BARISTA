@@ -6,11 +6,12 @@ import matplotlib.pyplot as plt
 
 class Optimization:
 
-    def __init__(self, learning_rate, training_samples, training_labels, max_iter, convergence_constant, penalty):
+    def __init__(self, learning_rate, training_samples, training_labels, max_iter, convergence_constant, l1_penalty, l2_penalty):
         self.learning_rate = learning_rate
         self.convergence_constant = convergence_constant
         self.max_iter = max_iter
-        self.penalty = penalty
+        self.l1_penalty = l1_penalty
+        self.l2_penalty = l2_penalty
         
         self.training_samples = training_samples
         self.training_labels = training_labels
@@ -86,10 +87,10 @@ class Optimization:
             if(sample_posterior == 0):
                  sample_posterior += np.finfo(float).eps
             log_likelihood_sum += np.log(sample_posterior)
-        return -1 * log_likelihood_sum +  self.penalty*sum(abs(self.weights.reshape(-1)))
+        return -1 * log_likelihood_sum +  self.l1_penalty*sum(abs(self.weights.reshape(-1)))
 
     def gradient(self, weights):
-        l2 = 0.2 * 2*(weights)
+        l2 = self.l2_penalty * 2*(weights)
         E = np.zeros(shape = (self.num_classes, self.num_attributes))
         for i in range(self.num_samples):
             sample_truth_index = self.ground_truths[i].index(max(self.ground_truths[i]))
@@ -105,7 +106,7 @@ class Optimization:
         return ((1/self.num_samples) * (E)) + l2
 
     def soft_thresholding(self, update, learning_rate):
-        boundary = (learning_rate * self.penalty) / 2
+        boundary = (learning_rate * self.l1_penalty) / 2
         if((-1 * boundary) < update and update < boundary):
             return 0
         elif(update > boundary):
@@ -139,7 +140,7 @@ class Optimization:
         return grad_norm
 
     def quad_approx(self, x, y, fy, learning_rate, gradient):
-        l1 = self.penalty*sum(abs(x.reshape(-1)))
+        l1 = self.l1_penalty*sum(abs(x.reshape(-1)))
         Q = fy + (x-y).reshape(-1).dot(gradient.reshape(-1)) + 1/(2*learning_rate)*np.linalg.norm(x-y)**2 + l1
         return(Q)
 
@@ -170,7 +171,7 @@ class Optimization:
                 self.posterior_probabability_distribution = self.posterior_probabilities()
                 loss = self.model_loss()
 
-                previous_loss_no_penalty = loss_values[-1]-self.penalty*sum(abs(weights.reshape(-1)))
+                previous_loss_no_penalty = loss_values[-1]-self.l1_penalty*sum(abs(weights.reshape(-1)))
                 if(loss < self.quad_approx(current_weights, weights, previous_loss_no_penalty, learning_rate, self.gradient_matrix)):
                     break
                 else:
@@ -191,7 +192,8 @@ class Optimization:
 
             print("Iteration:", iteration)
             print("Learning Rate:", learning_rate)
-            print("Penalty Term:", self.penalty)
+            print("L1_Penalty Term:", self.l1_penalty)
+            print("L2_Penalty Term:", self.l2_penalty)
             print("Posterior Cache First Sample:", self.posterior_probabability_distribution[0])
             print("\nWeight Matrix:", self.weights)
             print("\nGradient Norm:", gradient_norm)
