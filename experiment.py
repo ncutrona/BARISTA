@@ -10,7 +10,7 @@ plt.rcParams['font.family'] = 'serif'
 
 
 l1_penalties = [0.01, 0.03, 0.06, 0.09, 0.12]
-l2_penalties = [0.001, 0.005, 0.01, 0.005]
+l2_penalties = [0.00001, 0.0001, 0.001, 0.005, 0.01, 0.05]
 def cross_val(X, y, learning_rate, l1_penalty, l2_penalty):
     cross_accuracies = []
     kf = KFold(n_splits=5, random_state=None, shuffle=True)
