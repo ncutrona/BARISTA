@@ -154,13 +154,15 @@ class Optimization:
         loss = self.model_loss()
         print("Initial Loss:", loss)
         loss_values.append(loss)
+        fista_weights = [weights]
+        t = 1
         #Hessian_obj = nd.Hessian(self.obj_func)
         #min_eig_values = []
         
         while(converged != True and iteration <= self.max_iter):
             learning_rate = np.copy(self.learning_rate)
             while(learning_rate > 1e-8):
-                current_weights = np.copy(weights)
+                current_weights = np.copy(fista_weights[-1])
                 self.gradient_matrix = self.gradient(current_weights)
                 current_weights = current_weights - (learning_rate * self.gradient_matrix)
                 for i in range(self.num_classes):
@@ -171,8 +173,11 @@ class Optimization:
                 self.posterior_probabability_distribution = self.posterior_probabilities()
                 loss = self.model_loss()
 
-                previous_loss_no_penalty = loss_values[-1]-self.l1_penalty*sum(abs(weights.reshape(-1)))
-                if(loss < self.quad_approx(current_weights, weights, previous_loss_no_penalty, learning_rate, self.gradient_matrix)):
+                previous_loss_no_penalty = loss_values[-1]-self.l1_penalty*sum(abs(fista_weights[-1].reshape(-1)))
+                if(loss < self.quad_approx(current_weights, fista_weights[-1], previous_loss_no_penalty, learning_rate, self.gradient_matrix)):
+                    t_new = (1 + np.sqrt(1 + 4*(t**2)))/2
+                    fista_weights.append(current_weights + ((t -1)/t_new)*(current_weights - weight_collection[-1]))
+                    t = t_new
                     break
                 else:
                     learning_rate *= 0.5
@@ -218,4 +223,3 @@ class Optimization:
             #plt.plot(loss_values)
             #plt.show()
             return [self.weights, weight_collection]
-        
