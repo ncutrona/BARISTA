@@ -27,7 +27,7 @@ def cross_val(X, y, learning_rate, l1_penalty, l2_penalty):
         ernb.predict(X_test, y_test)
         cross_accuracies.append(ernb.accuracy)
         split += 1
-        if(split == 5):
+        if(split == 1):
             differences = ernb.norm_differnces()
     return np.mean(cross_accuracies), differences
 
@@ -66,7 +66,7 @@ ernb.predict(X_test, y_test)
 print("Testing Accuracy:", ernb.accuracy)'''
 
 
-breast_w = pd.read_csv('/Users/nicolascutrona/Desktop/RPNB Data/breast_w.csv')
+'''breast_w = pd.read_csv('/Users/nicolascutrona/Desktop/RPNB Data/breast_w.csv')
 breast_w = preprocess.Preprocess(breast_w, "Class", [])
 X, y = breast_w.get_data()
 best_parameters, experimental_accuracy, breast_w_differences = experiment(X,y, learning_rate = 0.1, l1_penalties=l1_penalties, l2_penalties = l2_penalties)
@@ -94,7 +94,7 @@ mushroom = pd.read_csv('/Users/nicolascutrona/Desktop/RPNB Data/mushrooms.csv')
 mushroom = preprocess.Preprocess(mushroom, "class", [])
 X, y = mushroom.get_data()
 best_parameter, experimental_accuracy, mushroom_differences = experiment(X,y, learning_rate = 0.1, l1_penalties=l1_penalties, l2_penalties = l2_penalties)
-print("mushroom 5FCV Accuracy:", experimental_accuracy, "Best Penalty:", best_parameter)
+print("mushroom 5FCV Accuracy:", experimental_accuracy, "Best Penalty:", best_parameter)'''
 
 zoo = pd.read_csv('/Users/nicolascutrona/Desktop/RPNB Data/zoo.csv')
 zoo = preprocess.Preprocess(zoo, "17", [])
@@ -104,7 +104,7 @@ print("zoo 5FCV Accuracy:", experimental_accuracy, "Best Penalty:", best_paramet
 
 
 
-#Convergence Plots
+'''#Convergence Plots
 fig, ax = plt.subplots(3, 2, sharex=False, sharey=False, constrained_layout=True, figsize=[7, 7])
 #fig.subplots_adjust(hspace=0.5)
 fig.suptitle('Semilog Plots of Weight Convergence', fontsize=12, fontweight='bold')
@@ -141,4 +141,4 @@ fig.add_subplot(1, 1, 1, frame_on=False)
 plt.tick_params(labelcolor="none", bottom=False, left=False)
 
 # Adding the x-axis and y-axis labels for the bigger plot
-plt.show()
+plt.show()'''
