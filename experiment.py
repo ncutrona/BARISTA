@@ -55,6 +55,7 @@ l1_penalties = [0.01, 0.03, 0.06, 0.09, 0.12]
 l2_penalties = [0.00001, 0.0001, 0.001, 0.005, 0.01, 0.05]
 
 
+
 #ISTA vs FISTA Experiments
 
 #=========================================================================================================================================================
@@ -143,32 +144,46 @@ fig.suptitle('Semilog Convergence', fontsize=12, fontweight='bold')
 # Plot 1
 ax[0,0].semilogy(breast_fista_differences, 'g')
 ax[0,0].semilogy(breast_ista_differences, 'b')
-ax[0,0].set_title('breast-w', fontsize=10)
+ax[0,0].set_title('breast-w', fontsize=10, fontweight='bold')
+ax[0,0].set(xlabel = 'Iterations', ylabel = r'$||W^* - W^{k}||_F$')
 
 # Plot 2
 ax[0,1].semilogy(statlog_fista_differences, 'g')
 ax[0,1].semilogy(statlog_ista_differences, 'b')
-ax[0,1].set_title('statlog', fontsize = 10)
+ax[0,1].set_title('statlog', fontsize = 10, fontweight='bold')
+ax[0,1].set(xlabel = 'Iterations', ylabel = r'$||W^* - W^{k}||_F$')
 
 # Plot 3
 ax[1,0].semilogy(iris_fista_differences, 'g')
 ax[1,0].semilogy(iris_ista_differences, 'b')
-ax[1,0].set_title('iris', fontsize=10)
+ax[1,0].set_title('iris', fontsize=10, fontweight='bold')
+ax[1,0].set(xlabel = 'Iterations', ylabel = r'$||W^* - W^{k}||_F$')
 
 # Plot 4
 ax[1,1].semilogy(krkp_fista_differences, 'g')
 ax[1,1].semilogy(krkp_ista_differences, 'b')
-ax[1,1].set_title('kr-vs-kp', fontsize=10)
+ax[1,1].set_title('kr-vs-kp', fontsize=10, fontweight='bold')
+ax[1,1].set(xlabel = 'Iterations', ylabel = r'$||W^* - W^{k}||_F$')
 
 # Plot 5
 ax[2,0].semilogy(mushroom_fista_differences, 'g')
 ax[2,0].semilogy(mushroom_ista_differences, 'b')
-ax[2,0].set_title('mushroom', fontsize = 10)
+ax[2,0].set_title('mushroom', fontsize = 10, fontweight='bold')
+ax[2,0].set(xlabel = 'Iterations', ylabel = r'$||W^* - W^{k}||_F$')
 
 # Plot 6
 ax[2,1].semilogy(zoo_fista_differences, 'g')
 ax[2,1].semilogy(zoo_ista_differences, 'b')
-ax[2,1].set_title('zoo', fontsize = 10)
+ax[2,1].set_title('zoo', fontsize = 10, fontweight='bold')
+ax[2,1].set(xlabel = 'Iterations', ylabel = r'$||W^* - W^{k}||_F$')
+
+
+
+labels = ['FISTA', 'ISTA']
+l1 = ax[0,0].semilogy(breast_fista_differences, 'g')
+l2 = ax[0,0].semilogy(breast_ista_differences, 'b')
+fig.legend([l1, l2], labels=labels,
+           loc="upper right")
 
 # Adding a plot in the figure which will encapsulate all the subplots with axis showing only
 fig.add_subplot(1, 1, 1, frame_on=False)
@@ -178,3 +193,37 @@ plt.tick_params(labelcolor="none", bottom=False, left=False)
 
 # Adding the x-axis and y-axis labels for the bigger plot
 plt.savefig("/Users/nicolascutrona/Desktop/convergence.png", dpi=300)
+
+
+
+fig, ax = plt.subplots(1, 2, sharex=False, sharey=False, constrained_layout=True, figsize=[7, 3.5])
+fig.suptitle('Semilog Convergence', fontsize=12, fontweight='bold')
+
+# Plot the subplots
+# Plot 1
+ax[0].semilogy(breast_fista_differences, 'g')
+ax[0].semilogy(breast_ista_differences, 'b')
+ax[0].set_title('breast-w', fontsize=10, fontweight='bold')
+ax[0].set(xlabel = 'Iterations', ylabel = r'$||W^* - W^{k}||_F$')
+
+# Plot 2
+ax[1].semilogy(statlog_fista_differences, 'g')
+ax[1].semilogy(statlog_ista_differences, 'b')
+ax[1].set_title('statlog', fontsize = 10, fontweight='bold')
+ax[1].set(xlabel = 'Iterations', ylabel = r'$||W^* - W^{k}||_F$')
+
+
+
+labels = ['FISTA', 'ISTA']
+l1 = ax[0].semilogy(breast_fista_differences, 'g')
+l2 = ax[0].semilogy(breast_ista_differences, 'b')
+fig.legend([l1, l2], labels=labels,
+           loc="upper right")
+
+fig.add_subplot(1, 1, 1, frame_on=False)
+
+# Hiding the axis ticks and tick labels of the bigger plot
+plt.tick_params(labelcolor="none", bottom=False, left=False)
+
+# Adding the x-axis and y-axis labels for the bigger plot
+plt.savefig("/Users/nicolascutrona/Desktop/convergencetwo.png", dpi=300)
