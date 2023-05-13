@@ -1,2 +1,2 @@
-# RPNB-Framework
-Regularized Proximal Descent-Based Naive Bayes Framework
+# Bayesian Regularized Iterative Soft Thresholding Algorithm
+
