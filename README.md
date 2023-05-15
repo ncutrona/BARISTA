@@ -16,7 +16,7 @@ For now, we direct users to the UCI Machine Learning Repository [link](https://a
 
 ### How To Run
 
-To use BARISTA, please see the how_to_run.ipyn file that contains detailed instructions. A user will need a dataset, along with specificaions of parameter values when calling the BARISTA object. Below is some basic documentation about the algorith. 
+To use BARISTA, please see the how_to_run.ipyn file that contains detailed instructions. A user will need a dataset, along with specificaions of parameter values when calling the BARISTA object. Below is some basic **documentation** about the algorith. 
 
 
 
