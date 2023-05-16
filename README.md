@@ -51,6 +51,17 @@ $\ell_2$ *Penalty*: (float) penalty constant for $\ell_2$ regulatization
 
 _____________________________________________________________________________________________________________________________________________________________
 
-class BARISTA.fit(training_samples, training_labels, scheme = 'FISTA', learning_rate = 0.1, convergence_constant = 1e-6, max_iterations= 5000, l1_penalty = 0.01, l2_penalty = 0.001)
+class BARISTA.predict(testing_samples, testing_labels)
+
+*testing_samples*: (dataframe object) testing data with the class attribute removed
+
+*testing_labels*: (dataframe object - Series) testing labels that map to the testing samples
+
+<ins>output</ins>
+
+*predicted classification*: ($R^{n}$) predicted classifications corresponding to the testing samples
+
+
+
 
 
