@@ -16,7 +16,7 @@ For now, we direct users to the UCI Machine Learning Repository [link](https://a
 
 ### How To Run
 
-To use BARISTA, please see the how_to_run.ipnyb file that contains detailed instructions. A user will need a dataset, along with specificaions of parameter values when calling the BARISTA object. Below is some basic **documentation** about the algorith. 
+To use BARISTA, please see the how_to_run.ipynb file that contains detailed instructions. A user will need a dataset, along with specificaions of parameter values when calling the BARISTA object. Below is some basic **documentation** about the algorith. 
 
 class BARISTA.fit(training_samples, training_labels, scheme = 'FISTA', learning_rate = 0.1, convergence_constant = 1e-6, max_iterations= 5000, l1_penalty = 0.01, l2_penalty = 0.001)
 
