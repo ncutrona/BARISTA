@@ -63,5 +63,16 @@ class BARISTA.predict(testing_samples, testing_labels)
 
 
 
+_____________________________________________________________________________________________________________________________________________________________
+
+class BARISTA.model_accuracy(predictions, ground_truth)
+
+*predictions*: (array) array of predictions from BARISTA.predict
+
+*ground_truth*: (array) testing labels that map to the testing samples
+
+<ins>output</ins>
+
+*accuracy metric*: ($R$) accuracy score given by $\frac{#correc_predictions}{#testing_labels}$
 
 
