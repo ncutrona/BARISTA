@@ -1,7 +1,7 @@
 # Bayesian Regularized Iterative Soft Thresholding Algorithm
 
 
-The BARISTA repository is a dedicated codebase to work recently submitted to the NeurIPS 2023 Conference. This readme file will contain the paper abstract, a link to the data used for experimentation, and a python notebook with dedicated instructions on how to use our algorithm.
+The BARISTA repository is a dedicated codebase to work recently submitted to the NeurIPS 2023 Conference. This readme file contains the paper abstract, a link to the data used for experimentation, and a python notebook with dedicated instructions on how to use our algorithm.
 
 
 ### Paper Abstract
