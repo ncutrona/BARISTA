@@ -59,7 +59,7 @@ class BARISTA.predict(testing_samples, testing_labels)
 
 <ins>output</ins>
 
-*predicted classification*: ($\max \hat{P}_{test} \in R^{k}$) predicted classifications corresponding to the testing samples
+*predicted classification*: ($\max \hat{P}_{test} \rightarrow c \in R^{k}$) predicted classifications corresponding to the testing samples
 
 
 
