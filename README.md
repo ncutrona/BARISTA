@@ -34,9 +34,9 @@ class BARISTA.fit(training_samples, training_labels, scheme = 'FISTA', learning_
 
 *max_iterations*: (int) maximum number of iterations allowed duing model learning
 
-*$\ell_1$ Penalty*: (float) penalty constant for $\ell_1$ regulatization
+$\ell_1$ *Penalty*: (float) penalty constant for $\ell_1$ regulatization
 
-*$\ell_2$ Penalty*: (float) penalty constant for $\ell_2$ regulatization
+$\ell_2$ *Penalty*: (float) penalty constant for $\ell_2$ regulatization
 
 <ins>output</ins>
 
@@ -44,9 +44,9 @@ class BARISTA.fit(training_samples, training_labels, scheme = 'FISTA', learning_
 
 *priors*: ($R^{l}$) prior probabilities learned from training labels
 
-*likelihoods*: ($\{\Theta\ \in R^{\l \times m}\}^n_{i=1}$) likelihood probabilities learned from the training samples and labels
+*likelihoods*: ($\{\Theta\ \in R^{l \times m}\}^n_{i=1}$) likelihood probabilities learned from the training samples and labels
 
-*posteriors* ($\{P\ \in R^{\l}\}^n_{i=1}$) posterior distribution learned from the training samples and labels
+*posteriors* ($\{P\ \in R^{l}\}^n_{i=1}$) posterior distribution learned from the training samples and labels
 
 
 
