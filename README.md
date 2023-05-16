@@ -22,9 +22,9 @@ class BARISTA.fit(training_samples, training_labels, scheme = 'FISTA', learning_
 
 <ins>parameters</ins>
 
-*training_samples*: (dataframe object) training data with the class attribute removed
+*training_samples*: (dataframe object $(R^{n \times m})$) training data with the class attribute removed 
 
-*training_labels*: (dataframe object - Series) training labels that map to the training samples
+*training_labels*: (dataframe object - Series $(R^n)$) training labels that map to the training samples
 
 *scheme*: (String) optimization scheme (either FISTA or ISTA) to learn optimal weight values, *default*: FISTA
 
