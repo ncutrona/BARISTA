@@ -67,8 +67,8 @@ X, y = breast_w.get_data()
 best_parameters, experimental_accuracy, breast_fista_differences = experiment(X, y, scheme, learning_rate, convergence_constant, max_iterations, l1_penalties, l2_penalties)
 print("breast-w 5FCV Accuracy:", experimental_accuracy, "Best Penalty Combination:", best_parameters)
 
-#best_parameters, experimental_accuracy, breast_ista_differences = experiment(X, y, "ISTA", learning_rate, convergence_constant, max_iterations, l1_penalties, l2_penalties)
-#print("breast-w 5FCV Accuracy:", experimental_accuracy, "Best Penalty Combination:", best_parameters)
+best_parameters, experimental_accuracy, breast_ista_differences = experiment(X, y, "ISTA", learning_rate, convergence_constant, max_iterations, l1_penalties, l2_penalties)
+print("breast-w 5FCV Accuracy:", experimental_accuracy, "Best Penalty Combination:", best_parameters)
 
 #=========================================================================================================================================================
 
@@ -79,8 +79,8 @@ X, y = statlog.get_data()
 best_parameters, experimental_accuracy, statlog_fista_differences = experiment(X, y, scheme, learning_rate, convergence_constant, max_iterations, l1_penalties, l2_penalties)
 print("statlog 5FCV Accuracy:", experimental_accuracy, "Best Penalty Combination:", best_parameters)
 
-#best_parameters, experimental_accuracy, statlog_ista_differences = experiment(X, y, "ISTA", learning_rate, convergence_constant, max_iterations, l1_penalties, l2_penalties)
-#print("statlog 5FCV Accuracy:", experimental_accuracy, "Best Penalty Combination:", best_parameters)
+best_parameters, experimental_accuracy, statlog_ista_differences = experiment(X, y, "ISTA", learning_rate, convergence_constant, max_iterations, l1_penalties, l2_penalties)
+print("statlog 5FCV Accuracy:", experimental_accuracy, "Best Penalty Combination:", best_parameters)
 
 #=========================================================================================================================================================
 
@@ -91,8 +91,8 @@ X, y = iris.get_data()
 best_parameters, experimental_accuracy, iris_fista_differences = experiment(X, y, scheme, learning_rate, convergence_constant, max_iterations, l1_penalties, l2_penalties)
 print("iris 5FCV Accuracy:", experimental_accuracy, "Best Penalty Combination:", best_parameters)
 
-#best_parameters, experimental_accuracy, iris_ista_differences = experiment(X, y, "ISTA", learning_rate, convergence_constant, max_iterations, l1_penalties, l2_penalties)
-#print("iris 5FCV Accuracy:", experimental_accuracy, "Best Penalty Combination:", best_parameters)
+best_parameters, experimental_accuracy, iris_ista_differences = experiment(X, y, "ISTA", learning_rate, convergence_constant, max_iterations, l1_penalties, l2_penalties)
+print("iris 5FCV Accuracy:", experimental_accuracy, "Best Penalty Combination:", best_parameters)
 
 #=========================================================================================================================================================
 
@@ -103,8 +103,8 @@ X, y = krkp.get_data()
 best_parameters, experimental_accuracy, krkp_fista_differences = experiment(X, y, scheme, learning_rate, convergence_constant, max_iterations, l1_penalties, l2_penalties)
 print("krkp 5FCV Accuracy:", experimental_accuracy, "Best Penalty Combination:", best_parameters)
 
-#best_parameters, experimental_accuracy, krkp_ista_differences = experiment(X, y, "ISTA", learning_rate, convergence_constant, max_iterations, l1_penalties, l2_penalties)
-#print("krkp 5FCV Accuracy:", experimental_accuracy, "Best Penalty Combination:", best_parameters)
+best_parameters, experimental_accuracy, krkp_ista_differences = experiment(X, y, "ISTA", learning_rate, convergence_constant, max_iterations, l1_penalties, l2_penalties)
+print("krkp 5FCV Accuracy:", experimental_accuracy, "Best Penalty Combination:", best_parameters)
 
 #=========================================================================================================================================================
 
@@ -115,8 +115,8 @@ X, y = mushroom.get_data()
 best_parameters, experimental_accuracy, mushroom_fista_differences = experiment(X, y, scheme, learning_rate, convergence_constant, max_iterations, l1_penalties, l2_penalties)
 print("mushroom 5FCV Accuracy:", experimental_accuracy, "Best Penalty Combination:", best_parameters)
 
-#best_parameters, experimental_accuracy, mushroom_ista_differences = experiment(X, y, "ISTA", learning_rate, convergence_constant, max_iterations, l1_penalties, l2_penalties)
-#print("mushroom 5FCV Accuracy:", experimental_accuracy, "Best Penalty Combination:", best_parameters)
+best_parameters, experimental_accuracy, mushroom_ista_differences = experiment(X, y, "ISTA", learning_rate, convergence_constant, max_iterations, l1_penalties, l2_penalties)
+print("mushroom 5FCV Accuracy:", experimental_accuracy, "Best Penalty Combination:", best_parameters)
 
 #=========================================================================================================================================================
 
@@ -127,8 +127,8 @@ X, y = zoo.get_data()
 best_parameters, experimental_accuracy, zoo_fista_differences = experiment(X, y, scheme, learning_rate, convergence_constant, max_iterations, l1_penalties, l2_penalties)
 print("zoo 5FCV Accuracy:", experimental_accuracy, "Best Penalty Combination:", best_parameters)
 
-#best_parameters, experimental_accuracy, zoo_ista_differences = experiment(X, y, "ISTA", learning_rate, convergence_constant, max_iterations, l1_penalties, l2_penalties)
-#print("zoo 5FCV Accuracy:", experimental_accuracy, "Best Penalty Combination:", best_parameters)
+best_parameters, experimental_accuracy, zoo_ista_differences = experiment(X, y, "ISTA", learning_rate, convergence_constant, max_iterations, l1_penalties, l2_penalties)
+print("zoo 5FCV Accuracy:", experimental_accuracy, "Best Penalty Combination:", best_parameters)
 
 #=========================================================================================================================================================
 
@@ -136,7 +136,7 @@ print("zoo 5FCV Accuracy:", experimental_accuracy, "Best Penalty Combination:", 
 
 #Convergence Plots
 
-'''fig, ax = plt.subplots(3, 2, sharex=False, sharey=False, constrained_layout=True, figsize=[7, 7])
+fig, ax = plt.subplots(3, 2, sharex=False, sharey=False, constrained_layout=True, figsize=[7, 7])
 #fig.subplots_adjust(hspace=0.5)
 fig.suptitle('Semilog Convergence', fontsize=12, fontweight='bold')
 
@@ -192,7 +192,7 @@ fig.add_subplot(1, 1, 1, frame_on=False)
 plt.tick_params(labelcolor="none", bottom=False, left=False)
 
 # Adding the x-axis and y-axis labels for the bigger plot
-plt.savefig("/Users/nicolascutrona/Desktop/convergence.png", dpi=300)
+plt.savefig("/filepath/convergence.png", dpi=300)
 
 
 
@@ -226,4 +226,4 @@ fig.add_subplot(1, 1, 1, frame_on=False)
 plt.tick_params(labelcolor="none", bottom=False, left=False)
 
 # Adding the x-axis and y-axis labels for the bigger plot
-plt.savefig("/Users/nicolascutrona/Desktop/convergencetwo.png", dpi=300)'''
+plt.savefig("/filepath/convergencetwo.png", dpi=300)
