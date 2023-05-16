@@ -11,7 +11,7 @@ Weighted Naive Bayes methods have recently been developed to alleviate the stron
 
 ### Data Access
 
-For now, we direct users to the UCI Machine Learning Repository [link](https://archive.ics.uci.edu/ml/index.php). If this work is accepted, we will release a link to our research group's one-drive that contains already pre-processed data.
+For now, we direct users to the UCI Machine Learning Repository [link](https://archive.ics.uci.edu/ml/index.php). If this work is accepted, we will release a link to our research group's one-drive that contains already pre-processed data. For now, users will have to fill in missing values manually.
 
 
 ### How To Run
