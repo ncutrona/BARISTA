@@ -18,6 +18,37 @@ For now, we direct users to the UCI Machine Learning Repository [link](https://a
 
 To use BARISTA, please see the how_to_run.ipyn file that contains detailed instructions. A user will need a dataset, along with specificaions of parameter values when calling the BARISTA object. Below is some basic **documentation** about the algorith. 
 
+class BARISTA.fit(training_samples, training_labels, scheme = 'FISTA', learning_rate = 0.1, convergence_constant = 1e-6, max_iterations= 5000, l1_penalty = 0.01, l2_penalty = 0.001)
+
+<ins>parameters</ins>
+
+*training_samples*: (dataframe object) training data with the class attribute removed
+
+*training_labels*: (dataframe object - Series) training labels that map to the training samples
+
+*scheme*: (String) optimization scheme (either FISTA or ISTA) to learn optimal weight values, *default*: FISTA
+
+*learning_rate*: (float) initial learning rate during the backtracking line search
+
+*convergence_constant*: (float) tolerance used to decide when to stop iterating 
+
+*max_iterations*: (int) maximum number of iterations allowed duing model learning
+
+*$\ell_1$ Penalty*: (float) penalty constant for $\ell_1$ regulatization
+
+*$\ell_2$ Penalty*: (float) penalty constant for $\ell_2$ regulatization
+
+<ins>output</ins>
+
+*model_weights*: ($R^{l \times m}$) Optimal set of class-dependent weights
+
+*priors*: ($R^{l}$) prior probabilities learned from training labels
+
+*likelihoods*: ($\{\Theta\ \in R^{\l \times m}\}^n_{i=1}$) likelihood probabilities learned from the training samples and labels
+
+*posteriors* ($\{P\ \in R^{\l}\}^n_{i=1}$) posterior distribution learned from the training samples and labels
+
+
 
 
 
