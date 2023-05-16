@@ -73,6 +73,6 @@ class BARISTA.model_accuracy(predictions, ground_truth)
 
 <ins>output</ins>
 
-*accuracy metric*: ($R$) accuracy score given by $1 - \frac{|\text{errors}|}{|\text{testing_labels}|}$
+*accuracy metric*: ($R$) accuracy score given by $1 - \frac{|\text{errors}|}{|\text{testing\_labels}|}$
 
 
