@@ -49,7 +49,8 @@ $\ell_2$ *Penalty*: (float) penalty constant for $\ell_2$ regulatization
 *posteriors* $(P \in R^{l})^n_{i=1}$ posterior distribution learned from the training samples and labels
 
 
+_____________________________________________________________________________________________________________________________________________________________
 
-
+class BARISTA.fit(training_samples, training_labels, scheme = 'FISTA', learning_rate = 0.1, convergence_constant = 1e-6, max_iterations= 5000, l1_penalty = 0.01, l2_penalty = 0.001)
 
 
