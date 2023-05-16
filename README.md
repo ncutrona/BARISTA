@@ -24,7 +24,7 @@ class BARISTA.fit(training_samples, training_labels, scheme = 'FISTA', learning_
 
 *training_samples*: $(R^{n \times m})$ dataframe object of training data with the class attribute removed 
 
-*training_labels*: $(R^{n \times m})$ dataframe object of training labels that map to the training samples
+*training_labels*: $(R^{n})$ dataframe object of training labels that map to the training samples
 
 *scheme*: (String) optimization scheme (either FISTA or ISTA) to learn optimal weight values, *default*: FISTA
 
@@ -53,13 +53,13 @@ ________________________________________________________________________________
 
 class BARISTA.predict(testing_samples, testing_labels)
 
-*testing_samples*: (dataframe object) testing data with the class attribute removed
+*testing_samples*: $(R^{k \times m})$ dataframe object of testing data with the class attribute removed
 
-*testing_labels*: (dataframe object - Series) testing labels that map to the testing samples
+*testing_labels*: $(R^{k})$ dataframe object of testing labels that map to the testing samples
 
 <ins>output</ins>
 
-*predicted classification*: ($\hat{P}_{test} \in R^{n}$) predicted classifications corresponding to the testing samples
+*predicted classification*: ($\hat{P}_{test} \in R^{k}$) predicted classifications corresponding to the testing samples
 
 
 
@@ -73,6 +73,6 @@ class BARISTA.model_accuracy(predictions, ground_truth)
 
 <ins>output</ins>
 
-*accuracy metric*: ($R$) accuracy score given by $1 - \frac{|\text{errors}|}{n}$
+*accuracy metric*: ($R$) accuracy score given by $1 - \frac{|\text{errors}|}{k}$
 
 
