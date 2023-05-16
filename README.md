@@ -46,7 +46,7 @@ $\ell_2$ *Penalty*: (float) penalty constant for $\ell_2$ regulatization
 
 *likelihoods*: $(\Theta \in R^{l \times m})^n_{i=1}$ likelihood probabilities learned from the training samples and labels
 
-*posteriors* $(P \in R^{l})^n_{i=1}$ posterior distribution learned from the training samples and labels
+*posteriors* $(\hat{P}_{train} \in R^{l})^n_{i=1}$ posterior distribution learned from the training samples and labels
 
 
 _____________________________________________________________________________________________________________________________________________________________
@@ -59,7 +59,7 @@ class BARISTA.predict(testing_samples, testing_labels)
 
 <ins>output</ins>
 
-*predicted classification*: ($R^{n}$) predicted classifications corresponding to the testing samples
+*predicted classification*: ($\hat{P}_{test} \in R^{n}$) predicted classifications corresponding to the testing samples
 
 
 
