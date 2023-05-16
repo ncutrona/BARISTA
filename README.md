@@ -11,12 +11,12 @@ Weighted Naive Bayes methods have recently been developed to alleviate the stron
 
 ### Data Access
 
-For now, we direct users to the UCI Machine Learning Repository [link](https://archive.ics.uci.edu/ml/index.php). If this work is accepted, we will release a link to our research group's one-drive that contains already pre-processed data. For now, users will have to fill in missing values manually.
+For now, we direct users to the UCI Machine Learning Repository [link](https://archive.ics.uci.edu/ml/index.php). If this work is accepted, we will release a link to our research group's one-drive that contains already pre-processed data. For now, user must manually impute missing values before loading the data into the BARISTA framework.
 
 
 ### How To Run
 
-To use BARISTA, please see the how_to_run.ipyn file that contains detailed instructions. A user will need a dataset, along with specificaions of parameter values when calling the BARISTA object. Below is some basic **documentation** about the algorith. 
+To use BARISTA, please see the how_to_run.ipnyb file that contains detailed instructions. A user will need a dataset, along with specificaions of parameter values when calling the BARISTA object. Below is some basic **documentation** about the algorith. 
 
 class BARISTA.fit(training_samples, training_labels, scheme = 'FISTA', learning_rate = 0.1, convergence_constant = 1e-6, max_iterations= 5000, l1_penalty = 0.01, l2_penalty = 0.001)
 
