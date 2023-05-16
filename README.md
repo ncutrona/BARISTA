@@ -44,9 +44,9 @@ $\ell_2$ *Penalty*: (float) penalty constant for $\ell_2$ regulatization
 
 *priors*: ($R^{l}$) prior probabilities learned from training labels
 
-*likelihoods*: ($\{\Theta\ \in R^{l \times m}\}^n_{i=1}$) likelihood probabilities learned from the training samples and labels
+*likelihoods*: ($(\Theta \in R^{l \times m})^n_{i=1}$) likelihood probabilities learned from the training samples and labels
 
-*posteriors* ($\{P\ \in R^{l}\}^n_{i=1}$) posterior distribution learned from the training samples and labels
+*posteriors* ($(P \in R^{l})^n_{i=1}$) posterior distribution learned from the training samples and labels
 
 
 
