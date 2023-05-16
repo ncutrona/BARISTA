@@ -60,7 +60,7 @@ l2_penalties = [0.00001, 0.0001, 0.001, 0.005, 0.01, 0.05]
 
 #=========================================================================================================================================================
 
-breast_w = pd.read_csv('/Users/nicolascutrona/Desktop/RPNB Data/breast_w.csv')
+breast_w = pd.read_csv('/filepath/breast_w.csv')
 breast_w = preprocess.Preprocess(breast_w, "Class", [])
 X, y = breast_w.get_data()
 
@@ -72,7 +72,7 @@ print("breast-w 5FCV Accuracy:", experimental_accuracy, "Best Penalty Combinatio
 
 #=========================================================================================================================================================
 
-statlog = pd.read_csv('/Users/nicolascutrona/Desktop/RPNB Data/statlog.csv')
+statlog = pd.read_csv('/filepath/statlog.csv')
 statlog = preprocess.Preprocess(statlog, "Target", ['age', 'resting_blood_pressure', 'serum_chol', 'max_hr', 'oldpeak'])
 X, y = statlog.get_data()
 
@@ -84,7 +84,7 @@ print("statlog 5FCV Accuracy:", experimental_accuracy, "Best Penalty Combination
 
 #=========================================================================================================================================================
 
-iris = pd.read_csv('/Users/nicolascutrona/Desktop/RPNB Data/iris.csv')
+iris = pd.read_csv('/filepath/iris.csv')
 iris = preprocess.Preprocess(iris, "variety", ['sepal.length', 'sepal.width', 'petal.length', 'petal.width'])
 X, y = iris.get_data()
 
@@ -96,7 +96,7 @@ print("iris 5FCV Accuracy:", experimental_accuracy, "Best Penalty Combination:",
 
 #=========================================================================================================================================================
 
-krkp = pd.read_csv('/Users/nicolascutrona/Desktop/RPNB Data/krkp.csv')
+krkp = pd.read_csv('/filepath/krkp.csv')
 krkp = preprocess.Preprocess(krkp, "36", [])
 X, y = krkp.get_data()
 
@@ -108,7 +108,7 @@ print("krkp 5FCV Accuracy:", experimental_accuracy, "Best Penalty Combination:",
 
 #=========================================================================================================================================================
 
-mushroom = pd.read_csv('/Users/nicolascutrona/Desktop/RPNB Data/mushroom.csv')
+mushroom = pd.read_csv('/filepath/mushroom.csv')
 mushroom = preprocess.Preprocess(mushroom, "class", [])
 X, y = mushroom.get_data()
 
@@ -120,7 +120,7 @@ print("mushroom 5FCV Accuracy:", experimental_accuracy, "Best Penalty Combinatio
 
 #=========================================================================================================================================================
 
-zoo = pd.read_csv('/Users/nicolascutrona/Desktop/RPNB Data/zoo.csv')
+zoo = pd.read_csv('/filepath/zoo.csv')
 zoo = preprocess.Preprocess(zoo, "17", [])
 X, y = zoo.get_data()
 
