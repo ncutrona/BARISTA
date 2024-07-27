@@ -3,24 +3,7 @@
 
 ### Paper Abstract
 
-Weighted Naive Bayes methods have recently been devel-
-oped to alleviate the strong conditional independence assumption of
-traditional Naive Bayes classifiers. In particular, class-specific attribute
-weighted Naive Bayes (CAWNB) has been shown to yield excellent per-
-formance on many modern datasets. Such methods, however, are prone
-to over-fitting on small sample, large feature space data. In this work, we
-propose a Bayesian Regularized Iterative Shrinkage-Thresholding Algo-
-rithm (BARISTA), which includes both ℓ1 and ℓ2 regularization to mitigate
-this problem. As we show, estimating the parameters of BARISTA via
-maximum likelihood yields a convex objective that can be efficiently
-optimized using Iterative Shrinkage-Thresholding Algorithms (ISTA).
-We prove the resulting method has many attractive theoretical and
-numerical properties, including a guaranteed linear rate of convergence.
-Using several standard benchmark datasets, we demonstrate how BARISTA
-can yield a significant increase in performance compared to many state-
-of-the-art weighted Naive Bayes methods. We also show how the Fast
-Iterative-Shrinkage Thresholding Algorithm (FISTA) can be used to
-further accelerate convergence.
+Weighted Naive Bayes methods have recently been developed to alleviate the strong conditional independence assumption of traditional Naive Bayes classifiers. In particular, class-specific attribute weighted Naive Bayes (CAWNB) has been shown to yield excellent performance on many modern datasets. Such methods, however, are prone to over-fitting on small sample, large feature space data. In this work, we propose a Bayesian Regularized Iterative Shrinkage-Thresholding Algorithm (\texttt{BARISTA}), which includes both $\ell_1$ and $\ell_2$ regularization to mitigate this problem. As we show, estimating the parameters of \texttt{BARISTA} via maximum likelihood yields a convex objective that can be efficiently optimized using Iterative Shrinkage-Thresholding Algorithms (ISTA). We prove the resulting method has many attractive theoretical and numerical properties, including a guaranteed linear rate of convergence. Using several standard benchmark datasets, we demonstrate how \texttt{BARISTA} can yield a significant increase in performance compared to many state-of-the-art weighted Naive Bayes methods. We also show how the Fast Iterative-Shrinkage Thresholding Algorithm (FISTA) can be used to further accelerate convergence.
 
 
 ### Data Access
