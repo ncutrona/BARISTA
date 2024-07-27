@@ -1,17 +1,31 @@
 # Bayesian Regularized Iterative Soft Thresholding Algorithm
 
 
-The BARISTA repository is a dedicated codebase to work recently submitted to the NeurIPS 2023 Conference. This readme file contains the paper abstract, a link to the data used for experimentation, and a python notebook with dedicated instructions on how to use our algorithm.
-
-
 ### Paper Abstract
 
-Weighted Naive Bayes methods have recently been developed to alleviate the strong conditional independence assumption of traditional Naive Bayes classifiers. In particular, class-specific attribute weighted Naive Bayes (CAWNB) has been shown to yield excellent performance on many modern datasets. Such methods, however, are prone to over-fitting on small sample, large feature space data. In this work, we propose a Bayesian Regularized Iterative Shrinkage-Thresholding Algorithm *BARISTA*, which includes both $\ell_1$ and $\ell_2$ regularization to mitigate this problem. As we show, estimating the parameters of *BARISTA* via maximum likelihood yields a convex objective that can be efficiently optimized using Iterative shrinkage-thresholding Algorithms (ISTA). The resulting method has many attractive theoretical and numerical properties, including a guaranteed linear rate of convergence. Using several benchmark datasets, we demonstrate how *BARISTA* can yield a significant increase in performance compared to many state-of-the-art weighted Naive Bayes methods. We also show how the Fast Iterative-Shrinkage Thresholding algorithm (FISTA) can be used to further accelerate convergence.
+Weighted Naive Bayes methods have recently been devel-
+oped to alleviate the strong conditional independence assumption of
+traditional Naive Bayes classifiers. In particular, class-specific attribute
+weighted Naive Bayes (CAWNB) has been shown to yield excellent per-
+formance on many modern datasets. Such methods, however, are prone
+to over-fitting on small sample, large feature space data. In this work, we
+propose a Bayesian Regularized Iterative Shrinkage-Thresholding Algo-
+rithm (BARISTA), which includes both ℓ1 and ℓ2 regularization to mitigate
+this problem. As we show, estimating the parameters of BARISTA via
+maximum likelihood yields a convex objective that can be efficiently
+optimized using Iterative Shrinkage-Thresholding Algorithms (ISTA).
+We prove the resulting method has many attractive theoretical and
+numerical properties, including a guaranteed linear rate of convergence.
+Using several standard benchmark datasets, we demonstrate how BARISTA
+can yield a significant increase in performance compared to many state-
+of-the-art weighted Naive Bayes methods. We also show how the Fast
+Iterative-Shrinkage Thresholding Algorithm (FISTA) can be used to
+further accelerate convergence.
 
 
 ### Data Access
 
-For now, we direct users to the UCI Machine Learning Repository [link](https://archive.ics.uci.edu/ml/index.php). If this work is accepted, we will release a link to our research group's one-drive that contains already pre-processed data. For now, user must manually impute missing values before loading the data into the BARISTA framework.
+We direct users to the UCI Machine Learning Repository [link](https://archive.ics.uci.edu/ml/index.php). If this work is accepted, we will release a link to our research group's one-drive that contains already pre-processed data. For now, the pre-preocessed CSV files are included in this repo. A user will need to change the file path in the experiment file to run our experiments.
 
 
 ### How To Run
@@ -26,7 +40,7 @@ class BARISTA.fit(training_samples, training_labels, scheme = 'FISTA', learning_
 
 *training_labels*: $(R^{n})$ dataframe object of training labels that map to the training samples
 
-*scheme*: (String) optimization scheme (either FISTA or ISTA) to learn optimal weight values, *default*: FISTA
+*scheme*: (string) optimization scheme (either FISTA or ISTA) to learn optimal weight values, *default*: FISTA
 
 *learning_rate*: (float) initial learning rate during the backtracking line search
 
@@ -67,12 +81,10 @@ ________________________________________________________________________________
 
 class BARISTA.model_accuracy(predictions, ground_truth)
 
-*predictions*: (array) array of predictions from BARISTA.predict
+*predictions*: ($R^k$) array of predictions from BARISTA.predict
 
-*ground_truth*: (array) testing labels that map to the testing samples
+*ground_truth*: ($R^k$) testing labels that map to the testing samples
 
 <ins>output</ins>
 
 *accuracy metric*: ($R$) accuracy score given by $1 - \frac{|\text{errors}|}{k}$
-
-
