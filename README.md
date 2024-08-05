@@ -1,5 +1,6 @@
 # Bayesian Regularized Iterative Soft Thresholding Algorithm
 
+This work was recently published for the 18th Ibero-American Conference on Artificial Intelligence.
 
 ### Paper Abstract
 
